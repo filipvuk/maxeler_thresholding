@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maxCompilerManager version="2">
+<enginePart internalEngineSubproject="Maxeler_Threshold_EngineCode" isSrcBin="false" isUseDefaultSelected="false" outputLocation="/Maxeler_Threshold_EngineCode/bin" projectName="Maxeler_Threshold"/>
+<cpuPart internalCpuSubproject="Maxeler_Threshold_CPUCode"/>
+<watchedFiles/>
+</maxCompilerManager>

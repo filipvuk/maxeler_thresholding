@@ -1,0 +1,41 @@
+/**
+ * Document: MaxCompiler Training (maxcompiler-training.pdf)
+ * Chapter: 1      Exercise: 1      Name: Threshold
+ * MaxFile name: Threshold
+ * Summary:
+ * 	   Kernel that takes a scalar input and adds it to every pixel
+ *     to adjust the threshold of an image.
+ */
+package threshold;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class ThresholdKernel extends Kernel {
+
+	private static final DFEType type = dfeInt(32);
+
+	ThresholdKernel(KernelParameters parameters) {
+		super(parameters);
+
+		DFEVar input1 = io.input("inImage1", type);
+		DFEVar input2 = io.input("inImage2", type);
+		DFEVar input3 = io.input("inImage3", type);
+
+		DFEVar result1 = input1 + input2 + input3 >= 128*3 ? input1 + 255 - input1: 0;
+		DFEVar result2 = input1 + input2 + input3 >= 128*3 ? input2 + 255 - input2: 0;
+		DFEVar result3 = input1 + input2 + input3 >= 128*3 ? input3 + 255 - input3: 0;
+
+		/*DFEVar result1 = input1 + 70 < 255 ? input1 + 70 : 255;
+		DFEVar result2 = input2 + 70 < 255 ? input2 + 70 : 255;
+		DFEVar result3 = input3 + 70 < 255 ? input3 + 70 : 255;*/
+
+		io.output("outImage1", result1, type);
+		io.output("outImage2", result2, type);
+		io.output("outImage3", result3, type);
+	}
+
+
+}

@@ -1,0 +1,322 @@
+/**
+ * Document: MaxCompiler Training (maxcompiler-training.pdf)
+ * Chapter: 1      Exercise: 1      Name: Threshold
+ * MaxFile name: Threshold
+ * Summary:
+ *     Adjusts the threshold of an image by adding a constant
+ *     value to every pixel.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BITS_PER_PIXEL 24
+
+#define BITMAPFILEHEADER_SIZE 14
+#define BITMAPINFOHEADER_SIZE 40
+
+//assumption: little-endian
+void write_BITMAPFILEHEADER(FILE* f, unsigned int width, unsigned int height)
+  {
+	unsigned int offset = BITMAPFILEHEADER_SIZE + BITMAPINFOHEADER_SIZE, fileSize = width*height*(BITS_PER_PIXEL/8) + offset;
+	unsigned char arrayToWrite[4];
+
+	//must always be set to 'BM' to declare that this is a .bmp-file
+	arrayToWrite[0] = 'B';
+	arrayToWrite[1] = 'M';
+    fwrite(arrayToWrite, sizeof(char), 2, f);
+
+	//the size of the file in bytes
+	arrayToWrite[0] = (unsigned char)(fileSize);
+	arrayToWrite[1] = (unsigned char)(fileSize >> 8);
+	arrayToWrite[2] = (unsigned char)(fileSize >> 16);
+	arrayToWrite[3] = (unsigned char)(fileSize >> 24);
+	fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//reserved, must always be set to zero
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+	fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the offset from the beginning of the file to the bitmap data
+	arrayToWrite[0] = (unsigned char)(offset);
+	arrayToWrite[1] = (unsigned char)(offset >> 8);
+	arrayToWrite[2] = (unsigned char)(offset >> 16);
+	arrayToWrite[3] = (unsigned char)(offset >> 24);
+	fwrite(arrayToWrite, sizeof(char), 4, f);
+  }
+
+//assumption: little-endian
+void write_BITMAPINFOHEADER(FILE* f, unsigned int width, unsigned int height)
+  {
+    unsigned char arrayToWrite[4];
+
+	//the size of the BITMAPINFOHEADER structure, in bytes
+	arrayToWrite[0] = (unsigned char)(BITMAPINFOHEADER_SIZE);
+	arrayToWrite[1] = (unsigned char)(BITMAPINFOHEADER_SIZE >> 8);
+	arrayToWrite[2] = (unsigned char)(BITMAPINFOHEADER_SIZE >> 16);
+	arrayToWrite[3] = (unsigned char)(BITMAPINFOHEADER_SIZE >> 24);
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the width of the image, in pixels
+	arrayToWrite[0] = (unsigned char)(width);
+	arrayToWrite[1] = (unsigned char)(width >> 8);
+	arrayToWrite[2] = (unsigned char)(width >> 16);
+	arrayToWrite[3] = (unsigned char)(width >> 24);
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the height of the image, in pixels
+	arrayToWrite[0] = (unsigned char)(height);
+	arrayToWrite[1] = (unsigned char)(height >> 8);
+	arrayToWrite[2] = (unsigned char)(height >> 16);
+	arrayToWrite[3] = (unsigned char)(height >> 24);
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the number of planes of the target device, must be set to one
+	arrayToWrite[0] = 1;
+	arrayToWrite[1] = 0;
+    fwrite(arrayToWrite, sizeof(char), 2, f);
+
+	//the number of bits per pixel
+	arrayToWrite[0] = (unsigned char)(BITS_PER_PIXEL);
+	arrayToWrite[1] = (unsigned char)(BITS_PER_PIXEL >> 8);
+    fwrite(arrayToWrite, sizeof(char), 2, f);
+
+	//the type of compression, usually set to zero (no compression)
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the size of the image data, in bytes. If there is no compression, it is valid to set this member to zero
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the horizontal pixels per meter on the designated targer device, usually set to zero
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the vertical pixels per meter on the designated targer device, usually set to zero
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the number of colors used in the bitmap, if set to zero the number of colors is calculated using the biBitCount member
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+
+	//the number of color that are 'important' for the bitmap, if set to zero, all colors are important
+	arrayToWrite[0] = 0;
+	arrayToWrite[1] = 0;
+	arrayToWrite[2] = 0;
+	arrayToWrite[3] = 0;
+    fwrite(arrayToWrite, sizeof(char), 4, f);
+  }
+
+void extractPixels(char* imageName, unsigned char** bitmapBits, unsigned int* width, unsigned int* height)
+  {
+	FILE* f = fopen(imageName,"rb");
+	unsigned char arrayToRead[4], skipArray[1100];
+	unsigned int offset;
+
+	//BM
+	fread(arrayToRead, sizeof(char), 2, f);
+
+	//the size of the file in bytes
+	fread(arrayToRead, sizeof(char), 4, f);
+
+	//reserved
+	fread(arrayToRead, sizeof(char), 4, f);
+
+	//the offset from the beginning of the file to the bitmap data
+	fread(arrayToRead, sizeof(char), 4, f);
+	offset = (unsigned int)arrayToRead[0];
+	offset = offset | ((unsigned int)arrayToRead[1] << 8);
+	offset = offset | ((unsigned int)arrayToRead[2] << 16);
+	offset = offset | ((unsigned int)arrayToRead[3] << 24);
+
+	//the size of the BITMAPINFOHEADER structure, in bytes
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//the width of the image, in pixels
+    fread(arrayToRead, sizeof(char), 4, f);
+	*width = (unsigned int)arrayToRead[0];
+	*width = *width | ((unsigned int)arrayToRead[1] << 8);
+	*width = *width | ((unsigned int)arrayToRead[2] << 16);
+	*width = *width | ((unsigned int)arrayToRead[3] << 24);
+
+	//the height of the image, in pixels
+    fread(arrayToRead, sizeof(char), 4, f);
+	*height = (unsigned int)arrayToRead[0];
+	*height = *height | ((unsigned int)arrayToRead[1] << 8);
+	*height = *height | ((unsigned int)arrayToRead[2] << 16);
+	*height = *height | ((unsigned int)arrayToRead[3] << 24);
+
+	//the number of planes of the target device
+	fread(arrayToRead, sizeof(char), 2, f);
+
+	//the number of bits per pixel
+    fread(arrayToRead, sizeof(char), 2, f);
+
+	//the type of compression
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//the size of the image data, in bytes
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//the horizontal pixels per meter on the designated targer device
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//the vertical pixels per meter on the designated targer device
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//the number of colors used in the bitmap
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//the number of color that are 'important' for the bitmap
+    fread(arrayToRead, sizeof(char), 4, f);
+
+	//skip to the image data
+    fread(skipArray, sizeof(char), offset - BITMAPINFOHEADER_SIZE - BITMAPFILEHEADER_SIZE, f);
+
+	*bitmapBits = (unsigned char*)malloc((*width)*(*height)*(BITS_PER_PIXEL/8)*sizeof(char));
+
+	if (*bitmapBits==NULL)
+	  {
+	    fprintf(stderr, "ERROR - not enough memory\n");
+		exit(EXIT_FAILURE);
+	  }
+
+	fread(*bitmapBits, sizeof(char), (*width)*(*height)*(BITS_PER_PIXEL/8), f);
+
+	fclose(f);
+  }
+
+void thresholdCorrection(char* imageName, int threshold)
+  {
+    unsigned char* bitmapBits = NULL;
+	unsigned width, height;
+	int i;
+	FILE* out;
+
+	extractPixels(imageName, &bitmapBits, &width, &height);
+
+	for (i = 0; i < width*height*(BITS_PER_PIXEL/8); i+=3)
+	  {
+	    bitmapBits[i] = bitmapBits[i] + threshold <= 255 ? (bitmapBits[i] + threshold >= 0 ? bitmapBits[i] + threshold : 0) : 255;
+		bitmapBits[i+1] = bitmapBits[i+1] + threshold <= 255 ? (bitmapBits[i+1] + threshold >= 0 ? bitmapBits[i+1] + threshold : 0) : 255;
+		bitmapBits[i+2] = bitmapBits[i+2] + threshold <= 255 ? (bitmapBits[i+2] + threshold >= 0 ? bitmapBits[i+2] + threshold : 0) : 255;
+	  }
+
+	imageName[strlen(imageName)-4] = '\0';
+	strcat(imageName, "BC.bmp");
+
+	out = fopen(imageName, "wb");
+
+	write_BITMAPFILEHEADER(out, width, height);
+
+	write_BITMAPINFOHEADER(out, width, height);
+
+	fwrite(bitmapBits, 1, width*height*(BITS_PER_PIXEL/8), out);
+
+	fclose(out);
+
+	free(bitmapBits);
+  }
+
+/*int main(int argc, char* argv[])
+  {
+	char c;
+	char imageName[81];
+	int k = 0, threshold;
+	FILE* f;
+
+	fprintf(stdout, "Enter the name of the bitmap image you wish to brighten: ");
+
+	fscanf(stdin, "%c", &c);
+
+	while ((c != '\n') && (k<80))
+	  {
+		imageName[k++] = c;
+	    fscanf(stdin, "%c", &c);
+	  }
+
+	if (c != '\n')
+	  {
+	    fprintf(stderr, "ERROR - image name cannot be larger than 80 characters\n");
+		exit(EXIT_FAILURE);
+	  }
+	else
+	  imageName[k] = '\0';
+
+	f = fopen(imageName,"rb");
+	if (f==NULL)
+	  {
+	    fprintf(stderr, "ERROR - file doesn't exist\n");
+		exit(EXIT_FAILURE);
+	  }
+	else
+	  fclose(f);
+
+	fprintf(stdout, "\n\n\nEnter threshold parameter: ");
+
+	fscanf(stdin, "%d", &threshold);
+
+	thresholdCorrection(imageName, threshold);
+
+	fprintf(stdout, "Threshold correction complete. Image saved as %s\n", imageName);
+
+    return 0;
+  }*/
+
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "Maxfiles.h"
+#include <MaxSLiCInterface.h>
+
+#include "ppmIO.h"
+
+int main(void)
+{
+	printf("Loading image.\n");
+	int32_t *inImage;
+	int width = 0, height = 0;
+        
+        unsigned char* bitmapBits = NULL;
+
+	//loadImage("lena.ppm", &inImage, &width, &height, 0);
+
+	extractPixels("lenny.bmp", &bitmapBits, &width, &height);
+
+	loadImage(bitmapBits, &inImage, width, height, 0);
+
+	int dataSize = width * height * sizeof(int);
+	// Allocate a buffer for the output image
+	int32_t *outImage = malloc(dataSize);
+
+	printf("Running Kernel.\n");
+	Threshold(width * height, inImage, outImage);
+
+	printf("Saving image.\n");
+	writeImage("lena_b.ppm", outImage, width, height, 1);
+
+	printf("Exiting\n");
+	return 0;
+}
