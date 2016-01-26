@@ -1,0 +1,74 @@
+Wed 05:41: ########################################## 
+Wed 05:41: Compiling.
+Wed 05:41: ########################################## 
+
+Wed 05:41: MaxCompiler version: 2015.1.1 (simulation only).
+Wed 05:41: Build Simulation run rule for Maxeler_Threshold start time: Wed Jan 13 05:41:43 PST 2016.
+Wed 05:41: Project location: /home/demo/Desktop/Maxeler_Threshold.
+Wed 05:41: Detailed build log: /home/demo/Desktop/Maxeler_Threshold/RunRules/Simulation/build.log.
+
+Wed 05:41: Compiling Engine Code.
+Wed 05:41: Building Threshold.max file. 
+Wed 05:41: Setting environment variable:
+Wed 05:41: MAXCOMPILER_BUILD_DIR : /home/demo/Desktop/Maxeler_Threshold/RunRules/Simulation/maxfiles
+Wed 05:41: MAX_BUILDPARAMS : DFEModel='MAX2C' target='DFE_SIM' maxFileName='Threshold'  
+Wed 05:41: Building output:
+Wed 05:41: MaxCompiler version: 2015.1.1 (simulation only)
+Wed 05:41: Build "Threshold" start time: Wed Jan 13 05:41:46 PST 2016
+Wed 05:41: Main build process running as user demo on host localhost.localdomain
+Wed 05:41: Build location: /home/demo/Desktop/MaxCompiler-Builds/Threshold_MAX2C_DFE_SIM
+Wed 05:41: Detailed build log available in "_build.log"
+Wed 05:41: Instantiating manager
+Wed 05:41: Instantiating kernel "ThresholdKernel"
+Wed 05:41: Compiling manager (CPU I/O Only)
+Wed 05:41: 
+Wed 05:41: Compiling kernel "ThresholdKernel"
+Wed 05:41: Running back-end simulation build (3 phases)
+Wed 05:41: (1/3) - Prepare MaxFile Data (GenerateMaxFileDataFile)
+Wed 05:41: (2/3) - Compile Simulation Modules (SimCompilePass)
+Wed 05:41: (3/3) - Generate MaxFile (AddSimObjectToMaxFilePass)
+Wed 05:41: MaxFile: /home/demo/Desktop/MaxCompiler-Builds/Threshold_MAX2C_DFE_SIM/results/Threshold.max (MD5Sum: d36465d1cd778989301a84c3d96b49d7)
+Wed 05:41: Build completed: Wed Jan 13 05:41:59 PST 2016 (took 13 secs)
+Wed 05:41: Executing command:
+Wed 05:41: cp /home/demo/Desktop/Maxeler_Threshold/RunRules/Simulation/maxfiles/Threshold.h /home/demo/Desktop/Maxeler_Threshold/RunRules/Simulation/include/Threshold.h 
+Wed 05:41: Command output:
+Wed 05:41: Building: Threshold.max file finished.
+Wed 05:41: Engine build finished.
+Wed 05:41: Compiling CPU Code.
+Wed 05:41: Run CPU project make files updating
+Wed 05:41: Executing command:
+Wed 05:41: java -jar /opt/maxeler/maxcompiler/lib/MaxIDE/projectAdmin.jar -u /home/demo/Desktop/Maxeler_Threshold Simulation 
+Wed 05:41: Command output:
+
+Wed 05:41: MaxCompiler Project Admin Tool Version 2015.1.10001
+Wed 05:41:  Copyright Maxeler Technologies 2010 - 2015. All rights reserved.
+
+Wed 05:41: Handler version 1
+Wed 05:41: Updating RunRule dependent Makefiles for RunRule 'Simulation'
+Wed 05:42: Found makefiles: 1
+Wed 05:42: 	Updated: Simulation
+Wed 05:42: Run CPU make.
+Wed 05:42: make RUNRULE=Simulation 
+Wed 05:42: Command output:
+Wed 05:42: make -f Makefile ../RunRules/Simulation/binaries/Threshold
+Wed 05:42: make[1]: Entering directory `/home/demo/Desktop/Maxeler_Threshold/CPUCode'
+Wed 05:42: /opt/maxeler/maxcompiler/bin/sliccompile "../RunRules/Simulation/maxfiles/Threshold.max" "../RunRules/Simulation/objects/slic_Threshold.o"
+Wed 05:42: Processing maxfile for MAX2C_SIM from '../RunRules/Simulation/maxfiles/Threshold.max'.
+Wed 05:42: gcc -std=gnu99 -Wall -Werror -fno-guess-branch-probability -frandom-seed=foo -Wno-unused-variable -Wno-unused-function -fPIC -I /opt/maxeler/maxcompiler/include/slic -DMAXFILE_INC="/home/demo/Desktop/Maxeler_Threshold/CPUCode/../RunRules/Simulation/maxfiles/Threshold.max" -DSLIC_NO_DESTRUCTORS -c /opt/maxeler/maxcompiler/src/slicinterface/MaxFileInit.c -o slic_Threshold.o 
+Wed 05:42: Copying .max file C object into '/home/demo/Desktop/Maxeler_Threshold/CPUCode/../RunRules/Simulation/objects'
+Wed 05:42: cc -g -O3 -Wall -Wextra -fmessage-length=0 -I ../RunRules/Simulation/include -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/include/slic -D_XOPEN_SOURCE=600  -std=c99 -DBUILDNAME_MAXFILE_1=Threshold -DMAXFILE_1="Threshold.max"  -o "../RunRules/Simulation/objects/ThresholdCpuCode.o" -c "ThresholdCpuCode.c"
+Wed 05:42: cc -g -O3 -Wall -Wextra -fmessage-length=0 -I ../RunRules/Simulation/include -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/include/slic -D_XOPEN_SOURCE=600  -std=c99 -DBUILDNAME_MAXFILE_1=Threshold -DMAXFILE_1="Threshold.max"  -MM -MP -MT "../RunRules/Simulation/objects/ThresholdCpuCode.o" "ThresholdCpuCode.c" > "../RunRules/Simulation/objects/ThresholdCpuCode.d"
+Wed 05:42: cc -g -O3 -Wall -Wextra -fmessage-length=0 -I ../RunRules/Simulation/include -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/include/slic -D_XOPEN_SOURCE=600  -std=c99 -DBUILDNAME_MAXFILE_1=Threshold -DMAXFILE_1="Threshold.max"  -o "../RunRules/Simulation/objects/ppmIO.o" -c "ppmIO.c"
+Wed 05:42: cc -g -O3 -Wall -Wextra -fmessage-length=0 -I ../RunRules/Simulation/include -I. -I/opt/maxeler/maxcompiler/lib/maxeleros-sim/include -I/opt/maxeler/maxcompiler/include/slic -D_XOPEN_SOURCE=600  -std=c99 -DBUILDNAME_MAXFILE_1=Threshold -DMAXFILE_1="Threshold.max"  -MM -MP -MT "../RunRules/Simulation/objects/ppmIO.o" "ppmIO.c" > "../RunRules/Simulation/objects/ppmIO.d"
+Wed 05:42: cc ../RunRules/Simulation/objects/ThresholdCpuCode.o ../RunRules/Simulation/objects/ppmIO.o ../RunRules/Simulation/objects/slic_Threshold.o  -L/opt/maxeler/maxcompiler/lib -L/opt/maxeler/maxcompiler/lib/maxeleros-sim/lib -lslic -lmaxeleros -lm -lpthread  -o "../RunRules/Simulation/binaries/Threshold"
+Wed 05:42: make[1]: Leaving directory `/home/demo/Desktop/Maxeler_Threshold/CPUCode'
+Wed 05:42: Build completed: Wed Jan 13 05:42:16 PST 2016
+
+
+Wed 05:42: ########################################## 
+Wed 05:42: Running
+Wed 05:42: ########################################## 
+Wed 05:42: Executing command:
+Wed 05:42: '/home/demo/Desktop/Maxeler_Threshold/RunRules/Simulation/binaries/Threshold' 
+Wed 05:42: Command output:
+Wed 05:42: Process terminated with exit code 0.

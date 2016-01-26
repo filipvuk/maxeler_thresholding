@@ -1,0 +1,1765 @@
+#ifdef MAXCOMPILER_VERSION_INFO
+#define MAXCOMPILER_VERSION_INFO_PRESENT 1
+#define MAXFILE_MAXCOMPILER_VERSION_YEAR         2015
+#define MAXFILE_MAXCOMPILER_VERSION_NUM          1
+#define MAXFILE_MAXCOMPILER_VERSION_POINT        1
+#define MAXFILE_MAXCOMPILER_VERSION_PATCH        ""
+#define MAXFILE_MAXCOMPILER_VERSION_REV          44944
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_DATE "2015-08-07"
+#define MAXFILE_MAXCOMPILER_VERSION_RELEASE_MODE true
+#endif
+
+#ifdef MAXFILE_BUILD_INFO
+#define MAXFILE_BUILD_INFO_PRESENT 1
+#define MAXFILE_BUILD_NAME "Threshold"
+#define MAXFILE_BUILD_DIR  "/home/demo/Desktop/MaxCompiler-Builds/Threshold_MAX2C_DFE_SIM"
+#define MAXFILE_BUILD_DATE  20160113
+#define MAXFILE_BUILD_REV   1
+#endif
+
+#ifdef PARAM
+#define PARAM_PRESENT 1
+PARAM(APP_ID, 0)
+PARAM(REV_ID, 0)
+PARAM(CHAIN_LENGTH, 40)
+PARAM(IS_SIMULATION, 1)
+PARAM(MEC_SUPPORTED, 1)
+PARAM(PCIE_SLAVE_STREAMING, 0)
+PARAM(PCIE_ALIGNMENT, 8)
+PARAM(NUM_IFPGA_LINKS, 0)
+#endif
+
+#ifdef STRING_PARAM
+#define STRING_PARAM_PRESENT 1
+STRING_PARAM(BOARD_MODEL, "MAX24412C")
+#endif
+
+
+
+#ifdef INCLUDE_GENERATED_CPP_HEADERS
+#include "ThresholdKernel.h"
+#endif
+
+
+
+
+
+
+
+
+
+
+#ifdef MANAGER_NODE
+#define MANAGER_NODE_PRESENT 1
+MANAGER_NODE(ThresholdKernel, Kernel)
+MANAGER_NODE(in1, PCIe_From_Host)
+MANAGER_NODE(in2, PCIe_From_Host)
+MANAGER_NODE(in3, PCIe_From_Host)
+MANAGER_NODE(out1, PCIe_To_Host)
+MANAGER_NODE(out2, PCIe_To_Host)
+MANAGER_NODE(out3, PCIe_To_Host)
+MANAGER_NODE(Stream_1, DualAspectMux)
+MANAGER_NODE(Stream_4, DualAspectMux)
+MANAGER_NODE(Stream_7, DualAspectMux)
+MANAGER_NODE(Stream_12, DualAspectReg)
+MANAGER_NODE(Stream_15, DualAspectReg)
+MANAGER_NODE(Stream_18, DualAspectReg)
+MANAGER_NODE(Stream_34, StreamPullPushAdapter)
+MANAGER_NODE(Stream_38, StreamPullPushAdapter)
+MANAGER_NODE(Stream_42, StreamPullPushAdapter)
+MANAGER_NODE(Stream_20, Fifo)
+MANAGER_NODE(Stream_24, Fifo)
+MANAGER_NODE(Stream_28, Fifo)
+MANAGER_NODE(Stream_22, Fifo)
+MANAGER_NODE(Stream_26, Fifo)
+MANAGER_NODE(Stream_30, Fifo)
+MANAGER_NODE(Stream_32, Fifo)
+MANAGER_NODE(Stream_36, Fifo)
+MANAGER_NODE(Stream_40, Fifo)
+#endif
+
+#ifdef MANAGER_NODE_IO
+#define MANAGER_NODE_IO_PRESENT 1
+MANAGER_NODE_IO(ThresholdKernel, in1, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(ThresholdKernel, in2, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(ThresholdKernel, in3, IN, STREAM, 32, PULL)
+MANAGER_NODE_IO(ThresholdKernel, out1, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(ThresholdKernel, out2, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(ThresholdKernel, out3, OUT, STREAM, 32, PUSH)
+MANAGER_NODE_IO(in1, in1, OUT, PCIE, 64, PUSH)
+MANAGER_NODE_IO(in2, in2, OUT, PCIE, 64, PUSH)
+MANAGER_NODE_IO(in3, in3, OUT, PCIE, 64, PUSH)
+MANAGER_NODE_IO(out1, out1, IN, PCIE, 64, PUSH)
+MANAGER_NODE_IO(out2, out2, IN, PCIE, 64, PUSH)
+MANAGER_NODE_IO(out3, out3, IN, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_1, input, IN, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_1, output, OUT, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_4, input, IN, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_4, output, OUT, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_7, input, IN, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_7, output, OUT, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_12, input, IN, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_12, output, OUT, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_15, input, IN, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_15, output, OUT, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_18, input, IN, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_18, output, OUT, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_34, input, IN, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_34, output, OUT, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_38, input, IN, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_38, output, OUT, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_42, input, IN, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_42, output, OUT, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_20, input, IN, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_20, output, OUT, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_24, input, IN, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_24, output, OUT, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_28, input, IN, PCIE, 64, PUSH)
+MANAGER_NODE_IO(Stream_28, output, OUT, PCIE, 64, PULL)
+MANAGER_NODE_IO(Stream_22, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_22, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_26, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_26, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_30, input, IN, PCIE, 32, PUSH)
+MANAGER_NODE_IO(Stream_30, output, OUT, STREAM, 32, PULL)
+MANAGER_NODE_IO(Stream_32, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_32, output, OUT, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_36, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_36, output, OUT, PCIE, 32, PULL)
+MANAGER_NODE_IO(Stream_40, input, IN, STREAM, 32, PUSH)
+MANAGER_NODE_IO(Stream_40, output, OUT, PCIE, 32, PULL)
+#endif
+
+#ifdef MANAGER_STREAM
+#define MANAGER_STREAM_PRESENT 1
+MANAGER_STREAM(in1, in1, Stream_20, input, 64)
+MANAGER_STREAM(in2, in2, Stream_24, input, 64)
+MANAGER_STREAM(in3, in3, Stream_28, input, 64)
+MANAGER_STREAM(ThresholdKernel, out1, Stream_32, input, 32)
+MANAGER_STREAM(ThresholdKernel, out2, Stream_36, input, 32)
+MANAGER_STREAM(ThresholdKernel, out3, Stream_40, input, 32)
+MANAGER_STREAM(Stream_1, output, Stream_22, input, 32)
+MANAGER_STREAM(Stream_4, output, Stream_26, input, 32)
+MANAGER_STREAM(Stream_7, output, Stream_30, input, 32)
+MANAGER_STREAM(Stream_12, output, Stream_34, input, 64)
+MANAGER_STREAM(Stream_15, output, Stream_38, input, 64)
+MANAGER_STREAM(Stream_18, output, Stream_42, input, 64)
+MANAGER_STREAM(Stream_34, output, out1, out1, 64)
+MANAGER_STREAM(Stream_38, output, out2, out2, 64)
+MANAGER_STREAM(Stream_42, output, out3, out3, 64)
+MANAGER_STREAM(Stream_20, output, Stream_1, input, 64)
+MANAGER_STREAM(Stream_24, output, Stream_4, input, 64)
+MANAGER_STREAM(Stream_28, output, Stream_7, input, 64)
+MANAGER_STREAM(Stream_22, output, ThresholdKernel, in1, 32)
+MANAGER_STREAM(Stream_26, output, ThresholdKernel, in2, 32)
+MANAGER_STREAM(Stream_30, output, ThresholdKernel, in3, 32)
+MANAGER_STREAM(Stream_32, output, Stream_12, input, 32)
+MANAGER_STREAM(Stream_36, output, Stream_15, input, 32)
+MANAGER_STREAM(Stream_40, output, Stream_18, input, 32)
+#endif
+
+#ifdef MANAGER_NODE_STACK_TRACE
+#define MANAGER_NODE_STACK_TRACE_PRESENT 1
+MANAGER_NODE_STACK_TRACE(ThresholdKernel, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(in1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(in2, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(in3, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(out1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(out2, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(out3, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_1, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_4, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_7, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_12, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_15, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_18, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_34, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_38, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_42, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_20, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_24, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_28, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_22, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_26, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_30, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_32, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_36, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+MANAGER_NODE_STACK_TRACE(Stream_40, "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+#endif
+
+
+#ifdef MANAGER_NODE_PROPERTY
+#define MANAGER_NODE_PROPERTY_PRESENT 1
+MANAGER_NODE_PROPERTY(ThresholdKernel, control_pipelining_depth, 2)
+#endif
+
+
+#ifdef KERNEL_CORE
+#define KERNEL_CORE_PRESENT 1
+KERNEL_CORE(ThresholdKernel)
+#endif
+
+#ifdef KERNEL_HOST_CONTROLLED
+#define KERNEL_HOST_CONTROLLED_PRESENT 1
+KERNEL_HOST_CONTROLLED(ThresholdKernel, ThresholdKernel)
+#endif
+
+#ifdef DEBUG_INPUT_BITS
+#define DEBUG_INPUT_BITS_PRESENT 1
+DEBUG_INPUT_BITS(ThresholdKernel, in1, 0)
+DEBUG_INPUT_BITS(ThresholdKernel, in2, 1)
+DEBUG_INPUT_BITS(ThresholdKernel, in3, 2)
+#endif
+
+#ifdef DEBUG_OUTPUT_BITS
+#define DEBUG_OUTPUT_BITS_PRESENT 1
+DEBUG_OUTPUT_BITS(ThresholdKernel, out1, 0)
+DEBUG_OUTPUT_BITS(ThresholdKernel, out2, 1)
+DEBUG_OUTPUT_BITS(ThresholdKernel, out3, 2)
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_CTOR
+#define MANAGER_NODE_CPP_SIM_MODEL_CTOR_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(in1, PCIePushSourceSync, "in1")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(in2, PCIePushSourceSync, "in2")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(in3, PCIePushSourceSync, "in3")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_20, FifoPushToPullSync, "Stream_20", false, 512, 64)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_24, FifoPushToPullSync, "Stream_24", false, 512, 64)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_28, FifoPushToPullSync, "Stream_28", false, 512, 64)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_1, DualAspectMuxSync, "Stream_1", 32, 2)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_4, DualAspectMuxSync, "Stream_4", 32, 2)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_7, DualAspectMuxSync, "Stream_7", 32, 2)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_22, FifoPushToPullSync, "Stream_22", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_26, FifoPushToPullSync, "Stream_26", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_30, FifoPushToPullSync, "Stream_30", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ThresholdKernel, ThresholdKernel, "ThresholdKernel")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_32, FifoPushToPullSync, "Stream_32", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_36, FifoPushToPullSync, "Stream_36", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_40, FifoPushToPullSync, "Stream_40", false, 512, 32)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_12, DualAspectRegSync, "Stream_12", 32, 2)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_15, DualAspectRegSync, "Stream_15", 32, 2)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_18, DualAspectRegSync, "Stream_18", 32, 2)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_34, PullToPushAdapterSync, "Stream_34")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_38, PullToPushAdapterSync, "Stream_38")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(Stream_42, PullToPushAdapterSync, "Stream_42")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(out1, PCIePushSinkSync, "out1")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(out2, PCIePushSinkSync, "out2")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(out3, PCIePushSinkSync, "out3")
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(CapabilityReg, CapRegs, "CapabilityReg", 0, 3, 3, 0, 0, 0, 0, 0, 40)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ifpga, IFPGARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(sfa, SFARegs)
+MANAGER_NODE_CPP_SIM_MODEL_CTOR(ChecksumMemory, ChecksumMem, "ChecksumMemory", "653d7eeaecb71e86b3a60855b9a1a4e0396bf166d438e89c6b04effa7b374c81")
+#endif
+
+#ifdef MANAGER_NODE_CPP_SIM_MODEL_SETUP
+#define MANAGER_NODE_CPP_SIM_MODEL_SETUP_PRESENT 1
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_ctld_almost_empty, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_ctld_done, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_ctld_empty, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_ctld_read, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_ctld_read_pipe_dbg, 9, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_ctld_request, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_done_out, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_fill_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_flush_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_flush_start, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_flush_start_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_flushing, 1, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_full_level, 4, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_out_stall, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_out_valid, 3, 0)
+MANAGER_NODE_CPP_SIM_MODEL_SETUP(ThresholdKernel, addDebugRegister, reg_dbg_stall_vector, 3, 0)
+#endif
+
+#ifdef PCIE_STREAM
+#define PCIE_STREAM_PRESENT 1
+PCIE_STREAM(in1, STREAM_FROM_HOST, 0)
+PCIE_STREAM(in2, STREAM_FROM_HOST, 1)
+PCIE_STREAM(in3, STREAM_FROM_HOST, 2)
+PCIE_STREAM(out1, STREAM_TO_HOST, 0)
+PCIE_STREAM(out2, STREAM_TO_HOST, 1)
+PCIE_STREAM(out3, STREAM_TO_HOST, 2)
+#endif
+
+#ifdef REG
+#define REG_PRESENT 1
+REG(ThresholdKernel.io_in1_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(ThresholdKernel.io_in2_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(ThresholdKernel.io_in3_force_disabled, 0x2, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(ThresholdKernel.io_out1_force_disabled, 0x3, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(ThresholdKernel.io_out2_force_disabled, 0x4, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(ThresholdKernel.io_out3_force_disabled, 0x5, 1, hwOffsetFix(1, 0, UNSIGNED))
+REG(ThresholdKernel.run_cycle_count, 0x6, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(ThresholdKernel.current_run_cycle_count, 0xc, 6, hwOffsetFix(48, 0, UNSIGNED))
+REG(ThresholdKernel.dbg_ctld_almost_empty, 0x12, 1, hwBits(3))
+REG(ThresholdKernel.dbg_ctld_done, 0x13, 1, hwBits(3))
+REG(ThresholdKernel.dbg_ctld_empty, 0x14, 1, hwBits(3))
+REG(ThresholdKernel.dbg_ctld_read, 0x15, 1, hwBits(3))
+REG(ThresholdKernel.dbg_ctld_read_pipe_dbg, 0x16, 2, hwBits(9))
+REG(ThresholdKernel.dbg_ctld_request, 0x18, 1, hwBits(3))
+REG(ThresholdKernel.dbg_done_out, 0x19, 1, hwBits(1))
+REG(ThresholdKernel.dbg_fill_level, 0x1a, 1, hwBits(4))
+REG(ThresholdKernel.dbg_flush_level, 0x1b, 1, hwBits(4))
+REG(ThresholdKernel.dbg_flush_start, 0x1c, 1, hwBits(1))
+REG(ThresholdKernel.dbg_flush_start_level, 0x1d, 1, hwBits(4))
+REG(ThresholdKernel.dbg_flushing, 0x1e, 1, hwBits(1))
+REG(ThresholdKernel.dbg_full_level, 0x1f, 1, hwBits(4))
+REG(ThresholdKernel.dbg_out_stall, 0x20, 1, hwBits(3))
+REG(ThresholdKernel.dbg_out_valid, 0x21, 1, hwBits(3))
+REG(ThresholdKernel.dbg_stall_vector, 0x22, 1, hwBits(3))
+REG(ifpga.ifpga_ctrl, 0x23, 1, hwBits(8))
+REG(SignalForwardingAdapter.SFA_FORWARD_EN, 0x24, 4, hwBits(32))
+#endif
+
+#ifdef REG_V2
+#define REG_V2_PRESENT 1
+REG_V2(ThresholdKernel.io_in1_force_disabled, 0x0, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(ThresholdKernel.io_in2_force_disabled, 0x1, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(ThresholdKernel.io_in3_force_disabled, 0x2, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(ThresholdKernel.io_out1_force_disabled, 0x3, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(ThresholdKernel.io_out2_force_disabled, 0x4, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(ThresholdKernel.io_out3_force_disabled, 0x5, 1, hwOffsetFix(1, 0, UNSIGNED), HOST_WRITE_ONLY, true)
+REG_V2(ThresholdKernel.run_cycle_count, 0x6, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_WRITE_ONLY, false)
+REG_V2(ThresholdKernel.current_run_cycle_count, 0xc, 6, hwOffsetFix(48, 0, UNSIGNED), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_ctld_almost_empty, 0x12, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_ctld_done, 0x13, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_ctld_empty, 0x14, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_ctld_read, 0x15, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_ctld_read_pipe_dbg, 0x16, 2, hwBits(9), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_ctld_request, 0x18, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_done_out, 0x19, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_fill_level, 0x1a, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_flush_level, 0x1b, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_flush_start, 0x1c, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_flush_start_level, 0x1d, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_flushing, 0x1e, 1, hwBits(1), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_full_level, 0x1f, 1, hwBits(4), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_out_stall, 0x20, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_out_valid, 0x21, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ThresholdKernel.dbg_stall_vector, 0x22, 1, hwBits(3), HOST_READ_ONLY, false)
+REG_V2(ifpga.ifpga_ctrl, 0x23, 1, hwBits(8), HOST_READ_WRITE, false)
+REG_V2(SignalForwardingAdapter.SFA_FORWARD_EN, 0x24, 4, hwBits(32), HOST_READ_WRITE, false)
+#endif
+
+
+
+
+#ifdef CHECKSUM
+#define CHECKSUM_PRESENT 1
+CHECKSUM("653d7eeaecb71e86b3a60855b9a1a4e0396bf166d438e89c6b04effa7b374c81")
+#endif
+
+#ifdef CAPABILITY
+#define CAPABILITY_PRESENT 1
+CAPABILITY(MAX2REV, MAX2REVC)
+CAPABILITY(MAX2RAM, DDR2_24GB)
+CAPABILITY(MAX2FPGA, SXT240_2C)
+#endif
+
+#ifdef DEFINE_DESIGN_NAME
+#define DESIGN_NAME Threshold
+#endif /* DEFINE_DESIGN_NAME */
+
+#ifndef SLIC_NO_DECLARATIONS
+/**\file */
+#ifndef SLIC_DECLARATIONS_Threshold_H
+#define SLIC_DECLARATIONS_Threshold_H
+#include "MaxSLiCInterface.h"
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+#define Threshold_PCIE_ALIGNMENT (8)
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+
+/**
+ * \brief Basic static function for the interface 'default'.
+ * 
+ * \param [in] param_N Interface Parameter "N".: Number of data items to process
+ * \param [in] instream_in1 The stream should be of size (param_N * 4) bytes.
+ * \param [in] instream_in2 The stream should be of size (param_N * 4) bytes.
+ * \param [in] instream_in3 The stream should be of size (param_N * 4) bytes.
+ * \param [out] outstream_out1 The stream should be of size (param_N * 4) bytes.
+ * \param [out] outstream_out2 The stream should be of size (param_N * 4) bytes.
+ * \param [out] outstream_out3 The stream should be of size (param_N * 4) bytes.
+ */
+void Threshold(
+	int32_t param_N,
+	const int32_t *instream_in1,
+	const int32_t *instream_in2,
+	const int32_t *instream_in3,
+	int32_t *outstream_out1,
+	int32_t *outstream_out2,
+	int32_t *outstream_out3);
+
+/**
+ * \brief Basic static non-blocking function for the interface 'default'.
+ * 
+ * Schedule to run on an engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ * 
+ * 
+ * \param [in] param_N Interface Parameter "N".: Number of data items to process
+ * \param [in] instream_in1 The stream should be of size (param_N * 4) bytes.
+ * \param [in] instream_in2 The stream should be of size (param_N * 4) bytes.
+ * \param [in] instream_in3 The stream should be of size (param_N * 4) bytes.
+ * \param [out] outstream_out1 The stream should be of size (param_N * 4) bytes.
+ * \param [out] outstream_out2 The stream should be of size (param_N * 4) bytes.
+ * \param [out] outstream_out3 The stream should be of size (param_N * 4) bytes.
+ * \return A handle on the execution status, or NULL in case of error.
+ */
+max_run_t *Threshold_nonblock(
+	int32_t param_N,
+	const int32_t *instream_in1,
+	const int32_t *instream_in2,
+	const int32_t *instream_in3,
+	int32_t *outstream_out1,
+	int32_t *outstream_out2,
+	int32_t *outstream_out3);
+
+/**
+ * \brief Advanced static interface, structure for the engine interface 'default'
+ * 
+ */
+typedef struct { 
+	int32_t param_N; /**<  [in] Interface Parameter "N".: Number of data items to process */
+	const int32_t *instream_in1; /**<  [in] The stream should be of size (param_N * 4) bytes. */
+	const int32_t *instream_in2; /**<  [in] The stream should be of size (param_N * 4) bytes. */
+	const int32_t *instream_in3; /**<  [in] The stream should be of size (param_N * 4) bytes. */
+	int32_t *outstream_out1; /**<  [out] The stream should be of size (param_N * 4) bytes. */
+	int32_t *outstream_out2; /**<  [out] The stream should be of size (param_N * 4) bytes. */
+	int32_t *outstream_out3; /**<  [out] The stream should be of size (param_N * 4) bytes. */
+} Threshold_actions_t;
+
+/**
+ * \brief Advanced static function for the interface 'default'.
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in,out] interface_actions Actions to be executed.
+ */
+void Threshold_run(
+	max_engine_t *engine,
+	Threshold_actions_t *interface_actions);
+
+/**
+ * \brief Advanced static non-blocking function for the interface 'default'.
+ *
+ * Schedule the actions to run on the engine and return immediately.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * 
+ * \param [in] engine The engine on which the actions will be executed.
+ * \param [in] interface_actions Actions to be executed.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *Threshold_run_nonblock(
+	max_engine_t *engine,
+	Threshold_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void Threshold_run_group(max_group_t *group, Threshold_actions_t *interface_actions);
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *Threshold_run_group_nonblock(max_group_t *group, Threshold_actions_t *interface_actions);
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void Threshold_run_array(max_engarray_t *engarray, Threshold_actions_t *interface_actions[]);
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *Threshold_run_array_nonblock(max_engarray_t *engarray, Threshold_actions_t *interface_actions[]);
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* Threshold_convert(max_file_t *maxfile, Threshold_actions_t *interface_actions);
+
+/**
+ * \brief Initialise a maxfile.
+ */
+max_file_t* Threshold_init(void);
+
+/* Error handling functions */
+int Threshold_has_errors(void);
+const char* Threshold_get_errors(void);
+void Threshold_clear_errors(void);
+/* Free statically allocated maxfile data */
+void Threshold_free(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int Threshold_simulator_start(void);
+/* returns: -1 = error running command; 0 = no error reported */
+int Threshold_simulator_stop(void);
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+#endif /* SLIC_DECLARATIONS_Threshold_H */
+
+#endif /* SLIC_NO_DECLARATIONS */
+
+#ifdef PHOTON_NODE_DATA
+#define PHOTON_NODE_DATA_PRESENT 1
+PHOTON_NODE_DATA(ThresholdKernel, 37, NodeInputMappedReg, "Scalar input (io_out1_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:23)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 38, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:23)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 0, NodeInputMappedReg, "Scalar input (io_in1_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:15)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 1, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:15)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 2, NodeInput, "Input(in1)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:15)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 3, NodeInputMappedReg, "Scalar input (io_in2_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:16)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 4, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:16)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 5, NodeInput, "Input(in2)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:16)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 6, NodeInputMappedReg, "Scalar input (io_in3_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:17)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 7, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:17)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 8, NodeInput, "Input(in3)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.input(IO.java:606)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:17)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 63, NodeTriAdd, "3 +", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:868)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 74, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x00000180; 384.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.gte(DFEVar.java:745)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 12, NodeGte, ">=", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.gte(DFEVar.java:745)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 16, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1165)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 73, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x000000ff; 255.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:883)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 14, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:883)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 64, NodeFIFO, "FIFO(1)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 15, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 17, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1165)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:19)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 40, NodeOutput, "Output(out1)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:23)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 42, NodeInputMappedReg, "Scalar input (io_out2_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:24)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 43, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:24)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 72, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x00000180; 384.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.gte(DFEVar.java:745)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 21, NodeGte, ">=", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.gte(DFEVar.java:745)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 25, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1165)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 71, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x000000ff; 255.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:883)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 23, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:883)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 65, NodeFIFO, "FIFO(1)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 24, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 26, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1165)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:20)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 45, NodeOutput, "Output(out2)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:24)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 47, NodeInputMappedReg, "Scalar input (io_out3_force_disabled)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:25)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 48, NodeNot, "~", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:25)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 70, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x00000180; 384.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.gte(DFEVar.java:745)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 30, NodeGte, ">=", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.gte(DFEVar.java:745)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 34, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x00000000; 0.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1165)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 69, NodeConstantRawBits, "{HWOffsetFix:32, 0, TWOSCOMPLEMENT}\n0x000000ff; 255.0", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:883)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 32, NodeAdd, "+", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.add(DFEVar.java:883)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 66, NodeFIFO, "FIFO(1)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 33, NodeSub, "-", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.sub(DFEVar.java:914)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 35, NodeMux, "MUX", "com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar.ternaryIf(DFEVar.java:1165)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:21)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 50, NodeOutput, "Output(out3)", "com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.IO.output(IO.java:816)\nthreshold.ThresholdKernel.<init>(ThresholdKernel.maxj:25)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:12)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 55, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 68, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 52, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 53, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 54, NodeStreamOffset, "stream offset: 1", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 56, NodeOutputMappedReg, "Scalar output (current_run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 67, NodeConstantRawBits, "{HWOffsetFix:1, 0, UNSIGNED}\n0x1; 1.0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 58, NodeConstantRawBits, "{HWOffsetFix:49, 0, UNSIGNED}\n0x1000000000000; 2.81474976710656E14", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 59, NodeCounterV1, "Counter(NUMERIC_INCREMENTING)\nInc: 1\nReset: 0\nInit: 0", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 61, NodeInputMappedReg, "Scalar input (run_cycle_count)", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 62, NodeEq, "==", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+PHOTON_NODE_DATA(ThresholdKernel, 60, NodeFlush, "flush on trigger", "com.maxeler.maxcompiler.v2.managers.DFEManager.build(DFEManager.java:362)\nthreshold.ThresholdManager.main(ThresholdManager.maxj:16)\n")
+#endif
+
+#ifdef SLIC_USE_DEFINITIONS
+#include <stdio.h>
+#include <math.h>
+#include <pthread.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+static max_file_t *stored_maxfile = NULL;
+static max_engine_t *stored_engine = NULL;
+static char *stored_error = NULL;
+static int stored_has_error = 0;
+static pthread_once_t slic_bs_is_initialised = PTHREAD_ONCE_INIT;
+
+static void set_error(const char *error_str)
+{
+	stored_has_error = 1; 
+	if(stored_error == NULL) {
+		stored_error = strdup(error_str);
+	} else {
+		char *nerr = malloc(strlen(stored_error) + strlen(error_str) + 2);
+		sprintf(nerr, "%s\n%s", stored_error, error_str);
+		free(stored_error);
+		stored_error = nerr;
+	}
+}
+static void set_error_and_free(char *error_str){
+	set_error(error_str);
+	free(error_str);
+}
+int Threshold_has_errors(void)
+{	return stored_has_error; }
+const char* Threshold_get_errors(void)
+{	return stored_error; }
+void Threshold_clear_errors(void)
+{
+	free(stored_error);
+	stored_error = NULL;
+	stored_has_error = 0;
+}
+
+static char Threshold_use_simulation[16];
+static void Threshold_def_use_simulation(void)
+{
+	long pid = ((long) getpid()) % 100000;
+	snprintf(Threshold_use_simulation, 16, "Threshol_%05ld_", pid);
+}
+static const char *Threshold_check_use_simulation(void)
+{
+	Threshold_def_use_simulation();
+	const char *use_sim = max_config_get_string(MAX_CONFIG_USE_SIMULATION);
+	if (use_sim == NULL) {
+		use_sim = Threshold_use_simulation;
+		max_config_set_string(MAX_CONFIG_USE_SIMULATION, use_sim);
+	}
+	return use_sim;
+}
+
+static int Threshold_simulation_launch = 0;
+int Threshold_simulator_start(void)
+{
+	int retval = 0;
+	const char *use_sim = Threshold_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX24412C -S simutils restart", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		if (strstr(buff, "Error")) {
+			set_error(buff);
+			retval = -1;
+		}
+	}
+	pclose(pipe_fp);
+	return retval;
+}
+
+int Threshold_simulator_stop(void)
+{
+	const char *use_sim = Threshold_check_use_simulation();
+	char buff[1024];
+	snprintf(buff, 1024, "PATH=simutils:$PATH maxcompilersim -d 1 -n %s -c MAX24412C -S simutils stop", use_sim);
+	FILE *pipe_fp = popen(buff, "r");
+	if (pipe_fp == NULL) {
+		strncat(buff, " : failed to execute.", (1024 - strlen(buff)));
+		set_error(buff);
+		return -1;
+	}
+	while (fgets(buff, 1024, pipe_fp) != NULL) {
+		/* Uncomment this to get simulator command output */
+		/* fprintf(stderr, buff); */
+		;
+	}
+	pclose(pipe_fp);
+	return 0;
+}
+
+static void Threshold_static_init(void) 
+{
+	stored_maxfile = Threshold_init();
+	if (stored_maxfile == NULL || !max_ok(stored_maxfile->errors)) {
+		stored_maxfile = NULL;
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) abort();
+		else { set_error("Unable to load maxfile"); return; }
+	}
+	if(!max_ok(max_global_errors())) {
+		set_error_and_free(max_errors_trace(max_global_errors()));
+		return;
+	}
+	if(!max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR))
+		max_errors_mode(stored_maxfile->errors, 0);
+	time_t timeout_previous = max_load_timeout(stored_maxfile, 30);
+	const char *use_sim = Threshold_check_use_simulation();
+	if (max_ping_daemon(stored_maxfile, use_sim) == 0) {
+		int sim_stat = Threshold_simulator_start();
+		if ((sim_stat == 0) && (max_ping_daemon(stored_maxfile, use_sim) == 1)) {
+			Threshold_simulation_launch = 1;
+		} else {
+			set_error("Error: An error occurred while trying to start the simulation infrastructure automatically.");
+			set_error("Error: Check that 'use_simulation=<simulator_name>' is set correctly in your SLiC configuration");
+			set_error("Error: and that the associated simulated system daemon is running.");
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		}
+	}
+	stored_engine = max_load(stored_maxfile, "*");
+	if (!max_ok(stored_maxfile->errors)) {
+		if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) {
+			fprintf(stderr, "\nUnable to load engine: aborting now.\n\n");
+			fflush(stderr);
+			abort();
+		} else {
+			set_error_and_free(max_errors_trace(stored_maxfile->errors));
+			max_file_free(stored_maxfile);
+			stored_maxfile = NULL;
+			return;
+		} 
+	} 
+	max_load_timeout(stored_maxfile, timeout_previous);
+}
+void Threshold_free(void)
+{
+	if (stored_engine != NULL) {
+		max_unload(stored_engine);
+		stored_engine = NULL;
+	}
+	if (stored_maxfile != NULL) {
+		max_file_free(stored_maxfile);
+		stored_maxfile = NULL;
+	}
+	if (stored_error != NULL) {
+		free(stored_error);
+		stored_error = NULL;
+	}
+	if (Threshold_simulation_launch == 1) {
+		int sim_stat = Threshold_simulator_stop();
+		if (sim_stat != 0 ) {
+			fprintf(stderr, "Error stopping simulator.");
+		}
+		Threshold_simulation_launch = 0;
+	}
+}
+
+static int Threshold_get_pcie_alignment(void)
+{
+#ifdef Threshold_PCIE_ALIGNMENT
+	return ((Threshold_PCIE_ALIGNMENT < 1) ? 16 : Threshold_PCIE_ALIGNMENT);
+#else
+	return 16;
+#endif
+}
+
+static int Threshold_check_aligned(const void *data)
+{
+	uintptr_t pointer = (uintptr_t) data;
+	int alignment = Threshold_get_pcie_alignment();
+	return (pointer % alignment) ? 1 : 0;
+}
+
+static void *Threshold_malloc_aligned(const size_t size)
+{
+	void *ptr;
+	int alignment = Threshold_get_pcie_alignment();
+	posix_memalign(&ptr, alignment, size);
+	return ptr;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/*---------------------------- Interface default -----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+
+
+#define CHECK_ERRORS_ST(ST, RET) if(!max_ok(ST->errors)) { if(max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n", max_errors_trace(ST->errors)); abort(); } set_error_and_free(max_errors_trace(ST->errors)); return RET; } 
+#define CHECK_NULL(VALUE, MESSAGE, RET) if(VALUE == NULL) { if (max_config_get_bool(MAX_CONFIG_STATIC_INTERFACE_ABORT_ON_ERROR)) { fprintf(stderr, "%s\n%s\n", (stored_error == NULL) ? "" : stored_error, MESSAGE); abort(); } set_error(MESSAGE); return RET; }
+
+ 
+typedef struct Threshold_callback_stream {
+	uint8_t *user_ptr;
+	uint8_t *aligned_ptr;
+	size_t   size;
+	int      is_output;
+} Threshold_callback_stream_t;
+
+typedef struct Threshold_callback_data {
+	Threshold_callback_stream_t stream[6]; 
+	int count;
+	int max_count;
+} Threshold_callback_data_t;
+
+static void Threshold_callback_internal(void *cb_data)
+{
+	Threshold_callback_data_t *data = (Threshold_callback_data_t*) cb_data;
+	for (int i = 0 ; i < data->count ; i++ ) {
+		Threshold_callback_stream_t *s = &data->stream[i];
+		if (s->is_output && (s->size > 0)) {
+			memcpy(s->user_ptr, s->aligned_ptr, s->size);
+		}
+		free(s->aligned_ptr);
+	}
+	free(data);
+}
+
+static max_actions_t* Threshold_convert_internal(
+	max_file_t *maxfile,
+	Threshold_actions_t *interface_actions,
+	int  is_internal_call,
+	void (**callback_func)(void*),
+	void **callback_data)
+{
+	max_actions_t *actions = max_actions_init(maxfile, NULL);
+	if(actions == NULL) return NULL;
+
+#define CHECK_ERRORS if(!max_ok(actions->errors)) { set_error_and_free(max_errors_trace(actions->errors)); return NULL; } 
+
+	Threshold_callback_data_t *cb_data = NULL;
+	int use_callback = (callback_func != NULL) && (callback_data != NULL);
+	if (use_callback) {
+		cb_data = malloc(sizeof(Threshold_callback_data_t));
+		if (cb_data == NULL) {
+			fprintf(stderr, "Unable to allocate memory for stream callback data in function Threshold_convert_internal\n");
+			return NULL;
+		}
+		cb_data->max_count = 6;
+		cb_data->count     = 0;
+		*callback_data     = cb_data;
+		*callback_func     = &Threshold_callback_internal;
+	}
+
+	int32_t param_N = interface_actions->param_N;
+	
+	/* code for scalar ThresholdKernel.run_cycle_count */
+	uint64_t ticks_ThresholdKernel = param_N;
+	max_set_ticks(actions, "ThresholdKernel", param_N);
+	CHECK_ERRORS;
+	/* end of code for scalar ThresholdKernel.run_cycle_count*/
+	
+	int64_t tmp_0 = (param_N * 4);
+	
+	/* code for stream in1 */
+	size_t instream_size_in1 = tmp_0;
+	if (instream_size_in1 > 0) {
+		const int32_t *stream_ptr = interface_actions->instream_in1;
+		if (use_callback && (1 == Threshold_check_aligned(interface_actions->instream_in1))) {
+			int32_t *aligned_instream_in1 = malloc(instream_size_in1);
+			if (aligned_instream_in1 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'in1'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_in1;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_in1;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_in1;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_in1, interface_actions->instream_in1, instream_size_in1);
+			stream_ptr = aligned_instream_in1;
+		}
+		max_queue_input(actions, "in1", stream_ptr, instream_size_in1);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream in1 */
+	
+	int64_t tmp_1 = (param_N * 4);
+	
+	/* code for stream in2 */
+	size_t instream_size_in2 = tmp_1;
+	if (instream_size_in2 > 0) {
+		const int32_t *stream_ptr = interface_actions->instream_in2;
+		if (use_callback && (1 == Threshold_check_aligned(interface_actions->instream_in2))) {
+			int32_t *aligned_instream_in2 = malloc(instream_size_in2);
+			if (aligned_instream_in2 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'in2'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_in2;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_in2;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_in2;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_in2, interface_actions->instream_in2, instream_size_in2);
+			stream_ptr = aligned_instream_in2;
+		}
+		max_queue_input(actions, "in2", stream_ptr, instream_size_in2);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream in2 */
+	
+	int64_t tmp_2 = (param_N * 4);
+	
+	/* code for stream in3 */
+	size_t instream_size_in3 = tmp_2;
+	if (instream_size_in3 > 0) {
+		const int32_t *stream_ptr = interface_actions->instream_in3;
+		if (use_callback && (1 == Threshold_check_aligned(interface_actions->instream_in3))) {
+			int32_t *aligned_instream_in3 = malloc(instream_size_in3);
+			if (aligned_instream_in3 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'in3'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->instream_in3;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_instream_in3;
+			(&cb_data->stream[cb_data->count])->size        = instream_size_in3;
+			(&cb_data->stream[cb_data->count])->is_output   = 0;
+			cb_data->count += 1;
+			memcpy(aligned_instream_in3, interface_actions->instream_in3, instream_size_in3);
+			stream_ptr = aligned_instream_in3;
+		}
+		max_queue_input(actions, "in3", stream_ptr, instream_size_in3);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream in3 */
+	
+	int64_t tmp_3 = (param_N * 4);
+	
+	/* code for stream out1 */
+	size_t outstream_size_out1 = tmp_3;
+	if (outstream_size_out1 > 0) {
+		int32_t *stream_ptr = interface_actions->outstream_out1;
+		if (use_callback && (1 == Threshold_check_aligned(interface_actions->outstream_out1))) {
+			int32_t *aligned_outstream_out1 = malloc(outstream_size_out1);
+			if (aligned_outstream_out1 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'out1'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_out1;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_out1;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_out1;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_out1;
+		}
+		max_queue_output(actions, "out1", stream_ptr, outstream_size_out1);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream out1 */
+	
+	int64_t tmp_4 = (param_N * 4);
+	
+	/* code for stream out2 */
+	size_t outstream_size_out2 = tmp_4;
+	if (outstream_size_out2 > 0) {
+		int32_t *stream_ptr = interface_actions->outstream_out2;
+		if (use_callback && (1 == Threshold_check_aligned(interface_actions->outstream_out2))) {
+			int32_t *aligned_outstream_out2 = malloc(outstream_size_out2);
+			if (aligned_outstream_out2 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'out2'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_out2;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_out2;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_out2;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_out2;
+		}
+		max_queue_output(actions, "out2", stream_ptr, outstream_size_out2);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream out2 */
+	
+	int64_t tmp_5 = (param_N * 4);
+	
+	/* code for stream out3 */
+	size_t outstream_size_out3 = tmp_5;
+	if (outstream_size_out3 > 0) {
+		int32_t *stream_ptr = interface_actions->outstream_out3;
+		if (use_callback && (1 == Threshold_check_aligned(interface_actions->outstream_out3))) {
+			int32_t *aligned_outstream_out3 = malloc(outstream_size_out3);
+			if (aligned_outstream_out3 == NULL) {
+				max_report_error_slic(actions->errors, __FILE__, __LINE__, 526, "Failed to allocate aligned memory for stream 'out3'");
+				CHECK_ERRORS;
+			}
+			(&cb_data->stream[cb_data->count])->user_ptr    = (uint8_t*) interface_actions->outstream_out3;
+			(&cb_data->stream[cb_data->count])->aligned_ptr = (uint8_t*) aligned_outstream_out3;
+			(&cb_data->stream[cb_data->count])->size        = outstream_size_out3;
+			(&cb_data->stream[cb_data->count])->is_output   = 1;
+			cb_data->count += 1;
+			stream_ptr = aligned_outstream_out3;
+		}
+		max_queue_output(actions, "out3", stream_ptr, outstream_size_out3);
+		CHECK_ERRORS;
+	}
+	/* end of code for stream out3 */
+	
+	if (use_callback && cb_data->count == 0) {
+		*callback_data = NULL;
+		*callback_func = NULL;
+		free(cb_data);
+	}
+	return actions;
+#undef CHECK_ERRORS
+}
+
+void Threshold(
+	int32_t param_N,
+	const int32_t *instream_in1,
+	const int32_t *instream_in2,
+	const int32_t *instream_in3,
+	int32_t *outstream_out1,
+	int32_t *outstream_out2,
+	int32_t *outstream_out3)
+{
+	(void) pthread_once(&slic_bs_is_initialised, Threshold_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", );
+	max_run_t *run = Threshold_nonblock(param_N, instream_in1, instream_in2, instream_in3, outstream_out1, outstream_out2, outstream_out3);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *Threshold_nonblock(
+	int32_t param_N,
+	const int32_t *instream_in1,
+	const int32_t *instream_in2,
+	const int32_t *instream_in3,
+	int32_t *outstream_out1,
+	int32_t *outstream_out2,
+	int32_t *outstream_out3)
+{
+	Threshold_actions_t interface_actions;
+	interface_actions.param_N = param_N;
+	interface_actions.instream_in1 = instream_in1;
+	interface_actions.instream_in2 = instream_in2;
+	interface_actions.instream_in3 = instream_in3;
+	interface_actions.outstream_out1 = outstream_out1;
+	interface_actions.outstream_out2 = outstream_out2;
+	interface_actions.outstream_out3 = outstream_out3;
+	(void) pthread_once(&slic_bs_is_initialised, Threshold_static_init);
+	CHECK_NULL(stored_maxfile, "Maxfile was not loaded", NULL);
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = Threshold_convert_internal(stored_maxfile, &interface_actions, 1, &cb_func, &cb_data);
+	CHECK_NULL(actions, "Unable to build actions", NULL);
+	max_validate(actions);
+	CHECK_ERRORS_ST(actions, NULL);
+	CHECK_ERRORS_ST(stored_engine, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(stored_engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(stored_engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+void Threshold_run(
+	max_engine_t *engine,
+	Threshold_actions_t *interface_actions)
+{
+	max_run_t *run = Threshold_run_nonblock(engine, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+max_run_t *Threshold_run_nonblock(
+	max_engine_t *engine,
+	Threshold_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_engine_get_max_file(engine); 
+	void (*cb_func)(void*) = NULL;
+	void  *cb_data         = NULL;
+	max_actions_t *actions = Threshold_convert_internal(maxfile, interface_actions, 1, &cb_func, &cb_data);
+	CHECK_ERRORS_ST(actions, NULL);
+	max_run_t *run;
+	if (cb_func == NULL) {
+		run = max_run_nonblock(engine, actions);
+	} else {
+		run = max_run_nonblock_with_cb(engine, actions, cb_func, cb_data);
+	}
+	CHECK_NULL(run, "Unable to run actions", NULL);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Group run advanced static function for the interface 'default'.
+ * 
+ * \param [in] group Group to use.
+ * \param [in,out] interface_actions Actions to run.
+ *
+ * Run the actions on the first device available in the group.
+ */
+void Threshold_run_group(max_group_t *group, Threshold_actions_t *interface_actions)
+{
+	max_run_t *run = Threshold_run_group_nonblock(group, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Group run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule the actions to run on the first device available in the group and return immediately.
+ * The status of the run must be checked with ::max_wait. 
+ * Note that use of ::max_nowait is prohibited with non-blocking running on groups:
+ * see the ::max_run_group_nonblock documentation for more explanation.
+ *
+ * \param [in] group Group to use.
+ * \param [in] interface_actions Actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *Threshold_run_group_nonblock(max_group_t *group, Threshold_actions_t *interface_actions)
+{
+	max_file_t *maxfile = max_group_get_max_file(group);
+	max_actions_t *actions = Threshold_convert_internal(maxfile, interface_actions, 1, NULL, NULL);
+	if(actions == NULL) return NULL;
+	if(!max_ok(actions->errors)) return NULL;
+	max_validate(actions);
+	max_run_t *run = max_run_group_nonblock(group, actions);
+	max_actions_free(actions);
+	return run;
+}
+
+
+/**
+ * \brief Array run advanced static function for the interface 'default'.
+ * 
+ * \param [in] engarray The array of devices to use.
+ * \param [in,out] interface_actions The array of actions to run.
+ *
+ * Run the array of actions on the array of engines.  The length of interface_actions
+ * must match the size of engarray.
+ */
+void Threshold_run_array(max_engarray_t *engarray, Threshold_actions_t *interface_actions[])
+{
+	max_run_t *run = Threshold_run_array_nonblock(engarray, interface_actions);
+	CHECK_NULL(run, "Unable to run actions", );
+	max_wait(run);
+}
+
+
+/**
+ * \brief Array run advanced static non-blocking function for the interface 'default'.
+ * 
+ *
+ * Schedule to run the array of actions on the array of engines, and return immediately.
+ * The length of interface_actions must match the size of engarray.
+ * The status of the run can be checked either by ::max_wait or ::max_nowait;
+ * note that one of these *must* be called, so that associated memory can be released.
+ *
+ * \param [in] engarray The array of devices to use.
+ * \param [in] interface_actions The array of actions to run.
+ * \return A handle on the execution status of the actions, or NULL in case of error.
+ */
+max_run_t *Threshold_run_array_nonblock(max_engarray_t *engarray, Threshold_actions_t *interface_actions[])
+{
+	max_file_t *maxfile = max_engarray_get_max_file(engarray, 0);
+	int i;
+	max_actarray_t *actarray = max_actarray_init(maxfile, engarray->size);
+	if (actarray == NULL) return NULL;
+	max_actions_t **arr_actions = malloc(engarray->size * sizeof(max_actions_t*));
+	for ( i = 0 ; i < actarray->size; i++ ) {
+		max_actions_t *actions = Threshold_convert_internal(maxfile, interface_actions[i], 1, NULL, NULL);
+		if (actions == NULL) return NULL;
+		arr_actions[i] = actions;
+		max_set_action(actarray, i, actions);
+	}
+	max_run_t *run = max_run_array_nonblock(engarray, actarray);
+	for ( i = 0 ; i < actarray->size ; i++ ) { max_actions_free(arr_actions[i]); }
+	max_actarray_free(actarray);
+	free(arr_actions);
+	return run;
+}
+
+
+/**
+ * \brief Converts a static-interface action struct into a dynamic-interface max_actions_t struct.
+ *
+ * Note that this is an internal utility function used by other functions in the static interface.
+ *
+ * \param [in] maxfile The maxfile to use.
+ * \param [in] interface_actions The interface-specific actions to run.
+ * \return The dynamic-interface actions to run, or NULL in case of error.
+ */
+max_actions_t* Threshold_convert(max_file_t *maxfile, Threshold_actions_t *interface_actions)
+{
+	return Threshold_convert_internal(maxfile, interface_actions, 0, NULL, NULL);
+}
+
+#undef CHECK_ERRORS_ST
+#undef CHECK_NULL
+
+
+
+#endif /* SLIC_USE_DEFINITIONS */
+
+#ifdef SLIC_DYNAMIC_CODE
+SLIC_MODE_START(default)	
+SLIC_PARAMETER_UINT64(int32_t, N, param_N)	
+SLIC_SET_TICKS(ThresholdKernel, param_N)	
+SLIC_TEMP_VAR(int64_t tmp_0 = (param_N * 4);)	
+SLIC_STREAM(in1, tmp_0)	
+SLIC_TEMP_VAR(int64_t tmp_1 = (param_N * 4);)	
+SLIC_STREAM(in2, tmp_1)	
+SLIC_TEMP_VAR(int64_t tmp_2 = (param_N * 4);)	
+SLIC_STREAM(in3, tmp_2)	
+SLIC_TEMP_VAR(int64_t tmp_3 = (param_N * 4);)	
+SLIC_STREAM(out1, tmp_3)	
+SLIC_TEMP_VAR(int64_t tmp_4 = (param_N * 4);)	
+SLIC_STREAM(out2, tmp_4)	
+SLIC_TEMP_VAR(int64_t tmp_5 = (param_N * 4);)	
+SLIC_STREAM(out3, tmp_5)	
+SLIC_MODE_END(default)
+
+#endif /* SLIC_DYNAMIC_CODE */
+
+#ifdef SKIN_META_DATA
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PG1h
+eGZpbGUgZm9ybWF0LXZlcnNpb249IjIwMTIwMjAwIiBoZWFkZXI9IlRocmVzaG9sZC5oIiBuYW1l
+PSJUaHJlc2hvbGQiPjxjb25zdGFudCBuYW1lPSJQQ0lFX0FMSUdOTUVOVCIgdHlwZT0ibG9uZyIg
+dmFsdWU9IjgiLz48ZW5naW5lbW9kZSBuYW1lPSJkZWZhdWx0Ij48ZnVuY3Rpb24gbmFtZT0iVGhy
+ZXNob2xkIiByZXR1cm4tdmFsdWU9InZvaWQiPjxzY2FsYXIgZGVzYz0iSW50ZXJmYWNlIFBhcmFt
+ZXRlciAmcXVvdDtOJnF1b3Q7LjogTnVtYmVyIG9mIGRhdGEgaXRlbXMgdG8gcHJvY2VzcyIgZGly
+ZWN0aW9uPSJJbnB1dCIgbmFtZT0icGFyYW1fTiIgdHlwZT0iaW50MzJfdCIvPjxhcnJheSBkZXNj
+PSJUaGUgc3RyZWFtIHNob3VsZCBiZSBvZiBzaXplIChwYXJhbV9OICogNCkgYnl0ZXMuIiBkaXJl
+Y3Rpb249IklucHV0IiBuYW1lPSJpbnN0cmVhbV9pbjEiIHNpemU9IihwYXJhbV9OICogNCkiIHRy
+YW5zcG9zZT0idHJ1ZSIgdHlwZT0iaW50MzJfdCI+PGRpbWVuc2lvbiBpbmRleD0iMCI+PGxlbmd0
+aD48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iLyIgdmFsdWU9Iigo
+cGFyYW1fTiAqIDQpIC8gNCkiPjxmdW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJh
+dG9yPSIqIiB2YWx1ZT0iKHBhcmFtX04gKiA0KSI+PHVzZXJQYXJhbSB2YWx1ZT0icGFyYW1fTiIv
+Pjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9u
+Q2FsbD48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5j
+dGlvbkNhbGw+PC9sZW5ndGg+PC9kaW1lbnNpb24+PC9hcnJheT48YXJyYXkgZGVzYz0iVGhlIHN0
+cmVhbSBzaG91bGQgYmUgb2Ygc2l6ZSAocGFyYW1fTiAqIDQpIGJ5dGVzLiIgZGlyZWN0aW9uPSJJ
+bnB1dCIgbmFtZT0iaW5zdHJlYW1faW4yIiBzaXplPSIocGFyYW1fTiAqIDQpIiB0cmFuc3Bvc2U9
+InRydWUiIHR5cGU9ImludDMyX3QiPjxkaW1lbnNpb24gaW5kZXg9IjAiPjxsZW5ndGg+PGZ1bmN0
+aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9Ii8iIHZhbHVlPSIoKHBhcmFtX04g
+KiA0KSAvIDQpIj48ZnVuY3Rpb25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iKiIg
+dmFsdWU9IihwYXJhbV9OICogNCkiPjx1c2VyUGFyYW0gdmFsdWU9InBhcmFtX04iLz48Y29uc3Rh
+bnRWYWx1ZSB2YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNv
+bnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxs
+PjwvbGVuZ3RoPjwvZGltZW5zaW9uPjwvYXJyYXk+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hv
+dWxkIGJlIG9mIHNpemUgKHBhcmFtX04gKiA0KSBieXRlcy4iIGRpcmVjdGlvbj0iSW5wdXQiIG5h
+bWU9Imluc3RyZWFtX2luMyIgc2l6ZT0iKHBhcmFtX04gKiA0KSIgdHJhbnNwb3NlPSJ0cnVlIiB0
+eXBlPSJpbnQzMl90Ij48ZGltZW5zaW9uIGluZGV4PSIwIj48bGVuZ3RoPjxmdW5jdGlvbkNhbGw+
+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIvIiB2YWx1ZT0iKChwYXJhbV9OICogNCkgLyA0
+KSI+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZhbHVlPSIo
+cGFyYW1fTiAqIDQpIj48dXNlclBhcmFtIHZhbHVlPSJwYXJhbV9OIi8+PGNvbnN0YW50VmFsdWUg
+dmFsdWU9IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjxjb25zdGFudFZh
+bHVlIHZhbHVlPSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48L2xlbmd0
+aD48L2RpbWVuc2lvbj48L2FycmF5PjxhcnJheSBkZXNjPSJUaGUgc3RyZWFtIHNob3VsZCBiZSBv
+ZiBzaXplIChwYXJhbV9OICogNCkgYnl0ZXMuIiBkaXJlY3Rpb249Ik91dHB1dCIgbmFtZT0ib3V0
+c3RyZWFtX291dDEiIHNpemU9IihwYXJhbV9OICogNCkiIHRyYW5zcG9zZT0idHJ1ZSIgdHlwZT0i
+aW50MzJfdCI+PGRpbWVuc2lvbiBpbmRleD0iMCI+PGxlbmd0aD48ZnVuY3Rpb25DYWxsPjxudW1C
+aW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iLyIgdmFsdWU9IigocGFyYW1fTiAqIDQpIC8gNCkiPjxm
+dW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJhdG9yIG9wZXJhdG9yPSIqIiB2YWx1ZT0iKHBhcmFt
+X04gKiA0KSI+PHVzZXJQYXJhbSB2YWx1ZT0icGFyYW1fTiIvPjxjb25zdGFudFZhbHVlIHZhbHVl
+PSI0Ii8+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48Y29uc3RhbnRWYWx1ZSB2
+YWx1ZT0iNCIvPjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PC9sZW5ndGg+PC9k
+aW1lbnNpb24+PC9hcnJheT48YXJyYXkgZGVzYz0iVGhlIHN0cmVhbSBzaG91bGQgYmUgb2Ygc2l6
+ZSAocGFyYW1fTiAqIDQpIGJ5dGVzLiIgZGlyZWN0aW9uPSJPdXRwdXQiIG5hbWU9Im91dHN0cmVh
+bV9vdXQyIiBzaXplPSIocGFyYW1fTiAqIDQpIiB0cmFuc3Bvc2U9InRydWUiIHR5cGU9ImludDMy
+X3QiPjxkaW1lbnNpb24gaW5kZXg9IjAiPjxsZW5ndGg+PGZ1bmN0aW9uQ2FsbD48bnVtQmluYXJ5
+T3BlcmF0b3Igb3BlcmF0b3I9Ii8iIHZhbHVlPSIoKHBhcmFtX04gKiA0KSAvIDQpIj48ZnVuY3Rp
+b25DYWxsPjxudW1CaW5hcnlPcGVyYXRvciBvcGVyYXRvcj0iKiIgdmFsdWU9IihwYXJhbV9OICog
+NCkiPjx1c2VyUGFyYW0gdmFsdWU9InBhcmFtX04iLz48Y29uc3RhbnRWYWx1ZSB2YWx1ZT0iNCIv
+PjwvbnVtQmluYXJ5T3BlcmF0b3I+PC9mdW5jdGlvbkNhbGw+PGNvbnN0YW50VmFsdWUgdmFsdWU9
+IjQiLz48L251bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjwvbGVuZ3RoPjwvZGltZW5z
+aW9uPjwvYXJyYXk+PGFycmF5IGRlc2M9IlRoZSBzdHJlYW0gc2hvdWxkIGJlIG9mIHNpemUgKHBh
+cmFtX04gKiA0KSBieXRlcy4iIGRpcmVjdGlvbj0iT3V0cHV0IiBuYW1lPSJvdXRzdHJlYW1fb3V0
+MyIgc2l6ZT0iKHBhcmFtX04gKiA0KSIgdHJhbnNwb3NlPSJ0cnVlIiB0eXBlPSJpbnQzMl90Ij48
+ZGltZW5zaW9uIGluZGV4PSIwIj48bGVuZ3RoPjxmdW5jdGlvbkNhbGw+PG51bUJpbmFyeU9wZXJh
+dG9yIG9wZXJhdG9yPSIvIiB2YWx1ZT0iKChwYXJhbV9OICogNCkgLyA0KSI+PGZ1bmN0aW9uQ2Fs
+bD48bnVtQmluYXJ5T3BlcmF0b3Igb3BlcmF0b3I9IioiIHZhbHVlPSIocGFyYW1fTiAqIDQpIj48
+dXNlclBhcmFtIHZhbHVlPSJwYXJhbV9OIi8+PGNvbnN0YW50VmFsdWUgdmFsdWU9IjQiLz48L251
+bUJpbmFyeU9wZXJhdG9yPjwvZnVuY3Rpb25DYWxsPjxjb25zdGFudFZhbHVlIHZhbHVlPSI0Ii8+
+PC9udW1CaW5hcnlPcGVyYXRvcj48L2Z1bmN0aW9uQ2FsbD48L2xlbmd0aD48L2RpbWVuc2lvbj48
+L2FycmF5PjwvZnVuY3Rpb24+PC9lbmdpbmVtb2RlPjwvbWF4ZmlsZT4=
+#endif /* SKIN_META_DATA */
+
+#ifdef SLIC_B64_DEFINITIONS
+I2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxtYXRoLmg+CiNpbmNsdWRlIDxwdGhyZWFkLmg+
+CiNpbmNsdWRlIDxzdHJpbmcuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgojaW5jbHVkZSA8c3RkbGli
+Lmg+CnN0YXRpYyBtYXhfZmlsZV90ICpzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CnN0YXRpYyBtYXhf
+ZW5naW5lX3QgKnN0b3JlZF9lbmdpbmUgPSBOVUxMOwpzdGF0aWMgY2hhciAqc3RvcmVkX2Vycm9y
+ID0gTlVMTDsKc3RhdGljIGludCBzdG9yZWRfaGFzX2Vycm9yID0gMDsKc3RhdGljIHB0aHJlYWRf
+b25jZV90IHNsaWNfYnNfaXNfaW5pdGlhbGlzZWQgPSBQVEhSRUFEX09OQ0VfSU5JVDsKCnN0YXRp
+YyB2b2lkIHNldF9lcnJvcihjb25zdCBjaGFyICplcnJvcl9zdHIpCnsKCXN0b3JlZF9oYXNfZXJy
+b3IgPSAxOyAKCWlmKHN0b3JlZF9lcnJvciA9PSBOVUxMKSB7CgkJc3RvcmVkX2Vycm9yID0gc3Ry
+ZHVwKGVycm9yX3N0cik7Cgl9IGVsc2UgewoJCWNoYXIgKm5lcnIgPSBtYWxsb2Moc3RybGVuKHN0
+b3JlZF9lcnJvcikgKyBzdHJsZW4oZXJyb3Jfc3RyKSArIDIpOwoJCXNwcmludGYobmVyciwgIiVz
+XG4lcyIsIHN0b3JlZF9lcnJvciwgZXJyb3Jfc3RyKTsKCQlmcmVlKHN0b3JlZF9lcnJvcik7CgkJ
+c3RvcmVkX2Vycm9yID0gbmVycjsKCX0KfQpzdGF0aWMgdm9pZCBzZXRfZXJyb3JfYW5kX2ZyZWUo
+Y2hhciAqZXJyb3Jfc3RyKXsKCXNldF9lcnJvcihlcnJvcl9zdHIpOwoJZnJlZShlcnJvcl9zdHIp
+Owp9CmludCBUaHJlc2hvbGRfaGFzX2Vycm9ycyh2b2lkKQp7CXJldHVybiBzdG9yZWRfaGFzX2Vy
+cm9yOyB9CmNvbnN0IGNoYXIqIFRocmVzaG9sZF9nZXRfZXJyb3JzKHZvaWQpCnsJcmV0dXJuIHN0
+b3JlZF9lcnJvcjsgfQp2b2lkIFRocmVzaG9sZF9jbGVhcl9lcnJvcnModm9pZCkKewoJZnJlZShz
+dG9yZWRfZXJyb3IpOwoJc3RvcmVkX2Vycm9yID0gTlVMTDsKCXN0b3JlZF9oYXNfZXJyb3IgPSAw
+Owp9CgpzdGF0aWMgY2hhciBUaHJlc2hvbGRfdXNlX3NpbXVsYXRpb25bMTZdOwpzdGF0aWMgdm9p
+ZCBUaHJlc2hvbGRfZGVmX3VzZV9zaW11bGF0aW9uKHZvaWQpCnsKCWxvbmcgcGlkID0gKChsb25n
+KSBnZXRwaWQoKSkgJSAxMDAwMDA7CglzbnByaW50ZihUaHJlc2hvbGRfdXNlX3NpbXVsYXRpb24s
+IDE2LCAiVGhyZXNob2xfJTA1bGRfIiwgcGlkKTsKfQpzdGF0aWMgY29uc3QgY2hhciAqVGhyZXNo
+b2xkX2NoZWNrX3VzZV9zaW11bGF0aW9uKHZvaWQpCnsKCVRocmVzaG9sZF9kZWZfdXNlX3NpbXVs
+YXRpb24oKTsKCWNvbnN0IGNoYXIgKnVzZV9zaW0gPSBtYXhfY29uZmlnX2dldF9zdHJpbmcoTUFY
+X0NPTkZJR19VU0VfU0lNVUxBVElPTik7CglpZiAodXNlX3NpbSA9PSBOVUxMKSB7CgkJdXNlX3Np
+bSA9IFRocmVzaG9sZF91c2Vfc2ltdWxhdGlvbjsKCQltYXhfY29uZmlnX3NldF9zdHJpbmcoTUFY
+X0NPTkZJR19VU0VfU0lNVUxBVElPTiwgdXNlX3NpbSk7Cgl9CglyZXR1cm4gdXNlX3NpbTsKfQoK
+c3RhdGljIGludCBUaHJlc2hvbGRfc2ltdWxhdGlvbl9sYXVuY2ggPSAwOwppbnQgVGhyZXNob2xk
+X3NpbXVsYXRvcl9zdGFydCh2b2lkKQp7CglpbnQgcmV0dmFsID0gMDsKCWNvbnN0IGNoYXIgKnVz
+ZV9zaW0gPSBUaHJlc2hvbGRfY2hlY2tfdXNlX3NpbXVsYXRpb24oKTsKCWNoYXIgYnVmZlsxMDI0
+XTsKCXNucHJpbnRmKGJ1ZmYsIDEwMjQsICJQQVRIPXNpbXV0aWxzOiRQQVRIIG1heGNvbXBpbGVy
+c2ltIC1kIDEgLW4gJXMgLWMgTUFYMjQ0MTJDIC1TIHNpbXV0aWxzIHJlc3RhcnQiLCB1c2Vfc2lt
+KTsKCUZJTEUgKnBpcGVfZnAgPSBwb3BlbihidWZmLCAiciIpOwoJaWYgKHBpcGVfZnAgPT0gTlVM
+TCkgewoJCXN0cm5jYXQoYnVmZiwgIiA6IGZhaWxlZCB0byBleGVjdXRlLiIsICgxMDI0IC0gc3Ry
+bGVuKGJ1ZmYpKSk7CgkJc2V0X2Vycm9yKGJ1ZmYpOwoJCXJldHVybiAtMTsKCX0KCXdoaWxlIChm
+Z2V0cyhidWZmLCAxMDI0LCBwaXBlX2ZwKSAhPSBOVUxMKSB7CgkJLyogVW5jb21tZW50IHRoaXMg
+dG8gZ2V0IHNpbXVsYXRvciBjb21tYW5kIG91dHB1dCAqLwoJCS8qIGZwcmludGYoc3RkZXJyLCBi
+dWZmKTsgKi8KCQlpZiAoc3Ryc3RyKGJ1ZmYsICJFcnJvciIpKSB7CgkJCXNldF9lcnJvcihidWZm
+KTsKCQkJcmV0dmFsID0gLTE7CgkJfQoJfQoJcGNsb3NlKHBpcGVfZnApOwoJcmV0dXJuIHJldHZh
+bDsKfQoKaW50IFRocmVzaG9sZF9zaW11bGF0b3Jfc3RvcCh2b2lkKQp7Cgljb25zdCBjaGFyICp1
+c2Vfc2ltID0gVGhyZXNob2xkX2NoZWNrX3VzZV9zaW11bGF0aW9uKCk7CgljaGFyIGJ1ZmZbMTAy
+NF07CglzbnByaW50ZihidWZmLCAxMDI0LCAiUEFUSD1zaW11dGlsczokUEFUSCBtYXhjb21waWxl
+cnNpbSAtZCAxIC1uICVzIC1jIE1BWDI0NDEyQyAtUyBzaW11dGlscyBzdG9wIiwgdXNlX3NpbSk7
+CglGSUxFICpwaXBlX2ZwID0gcG9wZW4oYnVmZiwgInIiKTsKCWlmIChwaXBlX2ZwID09IE5VTEwp
+IHsKCQlzdHJuY2F0KGJ1ZmYsICIgOiBmYWlsZWQgdG8gZXhlY3V0ZS4iLCAoMTAyNCAtIHN0cmxl
+bihidWZmKSkpOwoJCXNldF9lcnJvcihidWZmKTsKCQlyZXR1cm4gLTE7Cgl9Cgl3aGlsZSAoZmdl
+dHMoYnVmZiwgMTAyNCwgcGlwZV9mcCkgIT0gTlVMTCkgewoJCS8qIFVuY29tbWVudCB0aGlzIHRv
+IGdldCBzaW11bGF0b3IgY29tbWFuZCBvdXRwdXQgKi8KCQkvKiBmcHJpbnRmKHN0ZGVyciwgYnVm
+Zik7ICovCgkJOwoJfQoJcGNsb3NlKHBpcGVfZnApOwoJcmV0dXJuIDA7Cn0KCnN0YXRpYyB2b2lk
+IFRocmVzaG9sZF9zdGF0aWNfaW5pdCh2b2lkKSAKewoJc3RvcmVkX21heGZpbGUgPSBUaHJlc2hv
+bGRfaW5pdCgpOwoJaWYgKHN0b3JlZF9tYXhmaWxlID09IE5VTEwgfHwgIW1heF9vayhzdG9yZWRf
+bWF4ZmlsZS0+ZXJyb3JzKSkgewoJCXN0b3JlZF9tYXhmaWxlID0gTlVMTDsKCQlpZihtYXhfY29u
+ZmlnX2dldF9ib29sKE1BWF9DT05GSUdfU1RBVElDX0lOVEVSRkFDRV9BQk9SVF9PTl9FUlJPUikp
+IGFib3J0KCk7CgkJZWxzZSB7IHNldF9lcnJvcigiVW5hYmxlIHRvIGxvYWQgbWF4ZmlsZSIpOyBy
+ZXR1cm47IH0KCX0KCWlmKCFtYXhfb2sobWF4X2dsb2JhbF9lcnJvcnMoKSkpIHsKCQlzZXRfZXJy
+b3JfYW5kX2ZyZWUobWF4X2Vycm9yc190cmFjZShtYXhfZ2xvYmFsX2Vycm9ycygpKSk7CgkJcmV0
+dXJuOwoJfQoJaWYoIW1heF9jb25maWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5URVJG
+QUNFX0FCT1JUX09OX0VSUk9SKSkKCQltYXhfZXJyb3JzX21vZGUoc3RvcmVkX21heGZpbGUtPmVy
+cm9ycywgMCk7Cgl0aW1lX3QgdGltZW91dF9wcmV2aW91cyA9IG1heF9sb2FkX3RpbWVvdXQoc3Rv
+cmVkX21heGZpbGUsIDMwKTsKCWNvbnN0IGNoYXIgKnVzZV9zaW0gPSBUaHJlc2hvbGRfY2hlY2tf
+dXNlX3NpbXVsYXRpb24oKTsKCWlmIChtYXhfcGluZ19kYWVtb24oc3RvcmVkX21heGZpbGUsIHVz
+ZV9zaW0pID09IDApIHsKCQlpbnQgc2ltX3N0YXQgPSBUaHJlc2hvbGRfc2ltdWxhdG9yX3N0YXJ0
+KCk7CgkJaWYgKChzaW1fc3RhdCA9PSAwKSAmJiAobWF4X3BpbmdfZGFlbW9uKHN0b3JlZF9tYXhm
+aWxlLCB1c2Vfc2ltKSA9PSAxKSkgewoJCQlUaHJlc2hvbGRfc2ltdWxhdGlvbl9sYXVuY2ggPSAx
+OwoJCX0gZWxzZSB7CgkJCXNldF9lcnJvcigiRXJyb3I6IEFuIGVycm9yIG9jY3VycmVkIHdoaWxl
+IHRyeWluZyB0byBzdGFydCB0aGUgc2ltdWxhdGlvbiBpbmZyYXN0cnVjdHVyZSBhdXRvbWF0aWNh
+bGx5LiIpOwoJCQlzZXRfZXJyb3IoIkVycm9yOiBDaGVjayB0aGF0ICd1c2Vfc2ltdWxhdGlvbj08
+c2ltdWxhdG9yX25hbWU+JyBpcyBzZXQgY29ycmVjdGx5IGluIHlvdXIgU0xpQyBjb25maWd1cmF0
+aW9uIik7CgkJCXNldF9lcnJvcigiRXJyb3I6IGFuZCB0aGF0IHRoZSBhc3NvY2lhdGVkIHNpbXVs
+YXRlZCBzeXN0ZW0gZGFlbW9uIGlzIHJ1bm5pbmcuIik7CgkJCW1heF9maWxlX2ZyZWUoc3RvcmVk
+X21heGZpbGUpOwoJCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CgkJCXJldHVybjsKCQl9Cgl9Cglz
+dG9yZWRfZW5naW5lID0gbWF4X2xvYWQoc3RvcmVkX21heGZpbGUsICIqIik7CglpZiAoIW1heF9v
+ayhzdG9yZWRfbWF4ZmlsZS0+ZXJyb3JzKSkgewoJCWlmKG1heF9jb25maWdfZ2V0X2Jvb2woTUFY
+X0NPTkZJR19TVEFUSUNfSU5URVJGQUNFX0FCT1JUX09OX0VSUk9SKSkgewoJCQlmcHJpbnRmKHN0
+ZGVyciwgIlxuVW5hYmxlIHRvIGxvYWQgZW5naW5lOiBhYm9ydGluZyBub3cuXG5cbiIpOwoJCQlm
+Zmx1c2goc3RkZXJyKTsKCQkJYWJvcnQoKTsKCQl9IGVsc2UgewoJCQlzZXRfZXJyb3JfYW5kX2Zy
+ZWUobWF4X2Vycm9yc190cmFjZShzdG9yZWRfbWF4ZmlsZS0+ZXJyb3JzKSk7CgkJCW1heF9maWxl
+X2ZyZWUoc3RvcmVkX21heGZpbGUpOwoJCQlzdG9yZWRfbWF4ZmlsZSA9IE5VTEw7CgkJCXJldHVy
+bjsKCQl9IAoJfSAKCW1heF9sb2FkX3RpbWVvdXQoc3RvcmVkX21heGZpbGUsIHRpbWVvdXRfcHJl
+dmlvdXMpOwp9CnZvaWQgVGhyZXNob2xkX2ZyZWUodm9pZCkKewoJaWYgKHN0b3JlZF9lbmdpbmUg
+IT0gTlVMTCkgewoJCW1heF91bmxvYWQoc3RvcmVkX2VuZ2luZSk7CgkJc3RvcmVkX2VuZ2luZSA9
+IE5VTEw7Cgl9CglpZiAoc3RvcmVkX21heGZpbGUgIT0gTlVMTCkgewoJCW1heF9maWxlX2ZyZWUo
+c3RvcmVkX21heGZpbGUpOwoJCXN0b3JlZF9tYXhmaWxlID0gTlVMTDsKCX0KCWlmIChzdG9yZWRf
+ZXJyb3IgIT0gTlVMTCkgewoJCWZyZWUoc3RvcmVkX2Vycm9yKTsKCQlzdG9yZWRfZXJyb3IgPSBO
+VUxMOwoJfQoJaWYgKFRocmVzaG9sZF9zaW11bGF0aW9uX2xhdW5jaCA9PSAxKSB7CgkJaW50IHNp
+bV9zdGF0ID0gVGhyZXNob2xkX3NpbXVsYXRvcl9zdG9wKCk7CgkJaWYgKHNpbV9zdGF0ICE9IDAg
+KSB7CgkJCWZwcmludGYoc3RkZXJyLCAiRXJyb3Igc3RvcHBpbmcgc2ltdWxhdG9yLiIpOwoJCX0K
+CQlUaHJlc2hvbGRfc2ltdWxhdGlvbl9sYXVuY2ggPSAwOwoJfQp9CgpzdGF0aWMgaW50IFRocmVz
+aG9sZF9nZXRfcGNpZV9hbGlnbm1lbnQodm9pZCkKewojaWZkZWYgVGhyZXNob2xkX1BDSUVfQUxJ
+R05NRU5UCglyZXR1cm4gKChUaHJlc2hvbGRfUENJRV9BTElHTk1FTlQgPCAxKSA/IDE2IDogVGhy
+ZXNob2xkX1BDSUVfQUxJR05NRU5UKTsKI2Vsc2UKCXJldHVybiAxNjsKI2VuZGlmCn0KCnN0YXRp
+YyBpbnQgVGhyZXNob2xkX2NoZWNrX2FsaWduZWQoY29uc3Qgdm9pZCAqZGF0YSkKewoJdWludHB0
+cl90IHBvaW50ZXIgPSAodWludHB0cl90KSBkYXRhOwoJaW50IGFsaWdubWVudCA9IFRocmVzaG9s
+ZF9nZXRfcGNpZV9hbGlnbm1lbnQoKTsKCXJldHVybiAocG9pbnRlciAlIGFsaWdubWVudCkgPyAx
+IDogMDsKfQoKc3RhdGljIHZvaWQgKlRocmVzaG9sZF9tYWxsb2NfYWxpZ25lZChjb25zdCBzaXpl
+X3Qgc2l6ZSkKewoJdm9pZCAqcHRyOwoJaW50IGFsaWdubWVudCA9IFRocmVzaG9sZF9nZXRfcGNp
+ZV9hbGlnbm1lbnQoKTsKCXBvc2l4X21lbWFsaWduKCZwdHIsIGFsaWdubWVudCwgc2l6ZSk7Cgly
+ZXR1cm4gcHRyOwp9CgoKCi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCi8qLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLSBJbnRlcmZhY2UgZGVmYXVsdCAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLSovCi8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCgoKCiNkZWZpbmUgQ0hFQ0tfRVJST1JTX1NU
+KFNULCBSRVQpIGlmKCFtYXhfb2soU1QtPmVycm9ycykpIHsgaWYobWF4X2NvbmZpZ19nZXRfYm9v
+bChNQVhfQ09ORklHX1NUQVRJQ19JTlRFUkZBQ0VfQUJPUlRfT05fRVJST1IpKSB7IGZwcmludGYo
+c3RkZXJyLCAiJXNcbiIsIG1heF9lcnJvcnNfdHJhY2UoU1QtPmVycm9ycykpOyBhYm9ydCgpOyB9
+IHNldF9lcnJvcl9hbmRfZnJlZShtYXhfZXJyb3JzX3RyYWNlKFNULT5lcnJvcnMpKTsgcmV0dXJu
+IFJFVDsgfSAKI2RlZmluZSBDSEVDS19OVUxMKFZBTFVFLCBNRVNTQUdFLCBSRVQpIGlmKFZBTFVF
+ID09IE5VTEwpIHsgaWYgKG1heF9jb25maWdfZ2V0X2Jvb2woTUFYX0NPTkZJR19TVEFUSUNfSU5U
+RVJGQUNFX0FCT1JUX09OX0VSUk9SKSkgeyBmcHJpbnRmKHN0ZGVyciwgIiVzXG4lc1xuIiwgKHN0
+b3JlZF9lcnJvciA9PSBOVUxMKSA/ICIiIDogc3RvcmVkX2Vycm9yLCBNRVNTQUdFKTsgYWJvcnQo
+KTsgfSBzZXRfZXJyb3IoTUVTU0FHRSk7IHJldHVybiBSRVQ7IH0KCiAKdHlwZWRlZiBzdHJ1Y3Qg
+VGhyZXNob2xkX2NhbGxiYWNrX3N0cmVhbSB7Cgl1aW50OF90ICp1c2VyX3B0cjsKCXVpbnQ4X3Qg
+KmFsaWduZWRfcHRyOwoJc2l6ZV90ICAgc2l6ZTsKCWludCAgICAgIGlzX291dHB1dDsKfSBUaHJl
+c2hvbGRfY2FsbGJhY2tfc3RyZWFtX3Q7Cgp0eXBlZGVmIHN0cnVjdCBUaHJlc2hvbGRfY2FsbGJh
+Y2tfZGF0YSB7CglUaHJlc2hvbGRfY2FsbGJhY2tfc3RyZWFtX3Qgc3RyZWFtWzZdOyAKCWludCBj
+b3VudDsKCWludCBtYXhfY291bnQ7Cn0gVGhyZXNob2xkX2NhbGxiYWNrX2RhdGFfdDsKCnN0YXRp
+YyB2b2lkIFRocmVzaG9sZF9jYWxsYmFja19pbnRlcm5hbCh2b2lkICpjYl9kYXRhKQp7CglUaHJl
+c2hvbGRfY2FsbGJhY2tfZGF0YV90ICpkYXRhID0gKFRocmVzaG9sZF9jYWxsYmFja19kYXRhX3Qq
+KSBjYl9kYXRhOwoJZm9yIChpbnQgaSA9IDAgOyBpIDwgZGF0YS0+Y291bnQgOyBpKysgKSB7CgkJ
+VGhyZXNob2xkX2NhbGxiYWNrX3N0cmVhbV90ICpzID0gJmRhdGEtPnN0cmVhbVtpXTsKCQlpZiAo
+cy0+aXNfb3V0cHV0ICYmIChzLT5zaXplID4gMCkpIHsKCQkJbWVtY3B5KHMtPnVzZXJfcHRyLCBz
+LT5hbGlnbmVkX3B0ciwgcy0+c2l6ZSk7CgkJfQoJCWZyZWUocy0+YWxpZ25lZF9wdHIpOwoJfQoJ
+ZnJlZShkYXRhKTsKfQoKc3RhdGljIG1heF9hY3Rpb25zX3QqIFRocmVzaG9sZF9jb252ZXJ0X2lu
+dGVybmFsKAoJbWF4X2ZpbGVfdCAqbWF4ZmlsZSwKCVRocmVzaG9sZF9hY3Rpb25zX3QgKmludGVy
+ZmFjZV9hY3Rpb25zLAoJaW50ICBpc19pbnRlcm5hbF9jYWxsLAoJdm9pZCAoKipjYWxsYmFja19m
+dW5jKSh2b2lkKiksCgl2b2lkICoqY2FsbGJhY2tfZGF0YSkKewoJbWF4X2FjdGlvbnNfdCAqYWN0
+aW9ucyA9IG1heF9hY3Rpb25zX2luaXQobWF4ZmlsZSwgTlVMTCk7CglpZihhY3Rpb25zID09IE5V
+TEwpIHJldHVybiBOVUxMOwoKI2RlZmluZSBDSEVDS19FUlJPUlMgaWYoIW1heF9vayhhY3Rpb25z
+LT5lcnJvcnMpKSB7IHNldF9lcnJvcl9hbmRfZnJlZShtYXhfZXJyb3JzX3RyYWNlKGFjdGlvbnMt
+PmVycm9ycykpOyByZXR1cm4gTlVMTDsgfSAKCglUaHJlc2hvbGRfY2FsbGJhY2tfZGF0YV90ICpj
+Yl9kYXRhID0gTlVMTDsKCWludCB1c2VfY2FsbGJhY2sgPSAoY2FsbGJhY2tfZnVuYyAhPSBOVUxM
+KSAmJiAoY2FsbGJhY2tfZGF0YSAhPSBOVUxMKTsKCWlmICh1c2VfY2FsbGJhY2spIHsKCQljYl9k
+YXRhID0gbWFsbG9jKHNpemVvZihUaHJlc2hvbGRfY2FsbGJhY2tfZGF0YV90KSk7CgkJaWYgKGNi
+X2RhdGEgPT0gTlVMTCkgewoJCQlmcHJpbnRmKHN0ZGVyciwgIlVuYWJsZSB0byBhbGxvY2F0ZSBt
+ZW1vcnkgZm9yIHN0cmVhbSBjYWxsYmFjayBkYXRhIGluIGZ1bmN0aW9uIFRocmVzaG9sZF9jb252
+ZXJ0X2ludGVybmFsXG4iKTsKCQkJcmV0dXJuIE5VTEw7CgkJfQoJCWNiX2RhdGEtPm1heF9jb3Vu
+dCA9IDY7CgkJY2JfZGF0YS0+Y291bnQgICAgID0gMDsKCQkqY2FsbGJhY2tfZGF0YSAgICAgPSBj
+Yl9kYXRhOwoJCSpjYWxsYmFja19mdW5jICAgICA9ICZUaHJlc2hvbGRfY2FsbGJhY2tfaW50ZXJu
+YWw7Cgl9CgoJaW50MzJfdCBwYXJhbV9OID0gaW50ZXJmYWNlX2FjdGlvbnMtPnBhcmFtX047CgkK
+CS8qIGNvZGUgZm9yIHNjYWxhciBUaHJlc2hvbGRLZXJuZWwucnVuX2N5Y2xlX2NvdW50ICovCgl1
+aW50NjRfdCB0aWNrc19UaHJlc2hvbGRLZXJuZWwgPSBwYXJhbV9OOwoJbWF4X3NldF90aWNrcyhh
+Y3Rpb25zLCAiVGhyZXNob2xkS2VybmVsIiwgcGFyYW1fTik7CglDSEVDS19FUlJPUlM7CgkvKiBl
+bmQgb2YgY29kZSBmb3Igc2NhbGFyIFRocmVzaG9sZEtlcm5lbC5ydW5fY3ljbGVfY291bnQqLwoJ
+CglpbnQ2NF90IHRtcF8wID0gKHBhcmFtX04gKiA0KTsKCQoJLyogY29kZSBmb3Igc3RyZWFtIGlu
+MSAqLwoJc2l6ZV90IGluc3RyZWFtX3NpemVfaW4xID0gdG1wXzA7CglpZiAoaW5zdHJlYW1fc2l6
+ZV9pbjEgPiAwKSB7CgkJY29uc3QgaW50MzJfdCAqc3RyZWFtX3B0ciA9IGludGVyZmFjZV9hY3Rp
+b25zLT5pbnN0cmVhbV9pbjE7CgkJaWYgKHVzZV9jYWxsYmFjayAmJiAoMSA9PSBUaHJlc2hvbGRf
+Y2hlY2tfYWxpZ25lZChpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1faW4xKSkpIHsKCQkJaW50
+MzJfdCAqYWxpZ25lZF9pbnN0cmVhbV9pbjEgPSBtYWxsb2MoaW5zdHJlYW1fc2l6ZV9pbjEpOwoJ
+CQlpZiAoYWxpZ25lZF9pbnN0cmVhbV9pbjEgPT0gTlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJv
+cl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxFX18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQg
+dG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9yIHN0cmVhbSAnaW4xJyIpOwoJCQkJQ0hFQ0tf
+RVJST1JTOwoJCQl9CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJf
+cHRyICAgID0gKHVpbnQ4X3QqKSBpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1faW4xOwoJCQko
+JmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5hbGlnbmVkX3B0ciA9ICh1aW50OF90
+KikgYWxpZ25lZF9pbnN0cmVhbV9pbjE7CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNv
+dW50XSktPnNpemUgICAgICAgID0gaW5zdHJlYW1fc2l6ZV9pbjE7CgkJCSgmY2JfZGF0YS0+c3Ry
+ZWFtW2NiX2RhdGEtPmNvdW50XSktPmlzX291dHB1dCAgID0gMDsKCQkJY2JfZGF0YS0+Y291bnQg
+Kz0gMTsKCQkJbWVtY3B5KGFsaWduZWRfaW5zdHJlYW1faW4xLCBpbnRlcmZhY2VfYWN0aW9ucy0+
+aW5zdHJlYW1faW4xLCBpbnN0cmVhbV9zaXplX2luMSk7CgkJCXN0cmVhbV9wdHIgPSBhbGlnbmVk
+X2luc3RyZWFtX2luMTsKCQl9CgkJbWF4X3F1ZXVlX2lucHV0KGFjdGlvbnMsICJpbjEiLCBzdHJl
+YW1fcHRyLCBpbnN0cmVhbV9zaXplX2luMSk7CgkJQ0hFQ0tfRVJST1JTOwoJfQoJLyogZW5kIG9m
+IGNvZGUgZm9yIHN0cmVhbSBpbjEgKi8KCQoJaW50NjRfdCB0bXBfMSA9IChwYXJhbV9OICogNCk7
+CgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBpbjIgKi8KCXNpemVfdCBpbnN0cmVhbV9zaXplX2luMiA9
+IHRtcF8xOwoJaWYgKGluc3RyZWFtX3NpemVfaW4yID4gMCkgewoJCWNvbnN0IGludDMyX3QgKnN0
+cmVhbV9wdHIgPSBpbnRlcmZhY2VfYWN0aW9ucy0+aW5zdHJlYW1faW4yOwoJCWlmICh1c2VfY2Fs
+bGJhY2sgJiYgKDEgPT0gVGhyZXNob2xkX2NoZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMt
+Pmluc3RyZWFtX2luMikpKSB7CgkJCWludDMyX3QgKmFsaWduZWRfaW5zdHJlYW1faW4yID0gbWFs
+bG9jKGluc3RyZWFtX3NpemVfaW4yKTsKCQkJaWYgKGFsaWduZWRfaW5zdHJlYW1faW4yID09IE5V
+TEwpIHsKCQkJCW1heF9yZXBvcnRfZXJyb3Jfc2xpYyhhY3Rpb25zLT5lcnJvcnMsIF9fRklMRV9f
+LCBfX0xJTkVfXywgNTI2LCAiRmFpbGVkIHRvIGFsbG9jYXRlIGFsaWduZWQgbWVtb3J5IGZvciBz
+dHJlYW0gJ2luMiciKTsKCQkJCUNIRUNLX0VSUk9SUzsKCQkJfQoJCQkoJmNiX2RhdGEtPnN0cmVh
+bVtjYl9kYXRhLT5jb3VudF0pLT51c2VyX3B0ciAgICA9ICh1aW50OF90KikgaW50ZXJmYWNlX2Fj
+dGlvbnMtPmluc3RyZWFtX2luMjsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRd
+KS0+YWxpZ25lZF9wdHIgPSAodWludDhfdCopIGFsaWduZWRfaW5zdHJlYW1faW4yOwoJCQkoJmNi
+X2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5zaXplICAgICAgICA9IGluc3RyZWFtX3Np
+emVfaW4yOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5pc19vdXRwdXQg
+ICA9IDA7CgkJCWNiX2RhdGEtPmNvdW50ICs9IDE7CgkJCW1lbWNweShhbGlnbmVkX2luc3RyZWFt
+X2luMiwgaW50ZXJmYWNlX2FjdGlvbnMtPmluc3RyZWFtX2luMiwgaW5zdHJlYW1fc2l6ZV9pbjIp
+OwoJCQlzdHJlYW1fcHRyID0gYWxpZ25lZF9pbnN0cmVhbV9pbjI7CgkJfQoJCW1heF9xdWV1ZV9p
+bnB1dChhY3Rpb25zLCAiaW4yIiwgc3RyZWFtX3B0ciwgaW5zdHJlYW1fc2l6ZV9pbjIpOwoJCUNI
+RUNLX0VSUk9SUzsKCX0KCS8qIGVuZCBvZiBjb2RlIGZvciBzdHJlYW0gaW4yICovCgkKCWludDY0
+X3QgdG1wXzIgPSAocGFyYW1fTiAqIDQpOwoJCgkvKiBjb2RlIGZvciBzdHJlYW0gaW4zICovCglz
+aXplX3QgaW5zdHJlYW1fc2l6ZV9pbjMgPSB0bXBfMjsKCWlmIChpbnN0cmVhbV9zaXplX2luMyA+
+IDApIHsKCQljb25zdCBpbnQzMl90ICpzdHJlYW1fcHRyID0gaW50ZXJmYWNlX2FjdGlvbnMtPmlu
+c3RyZWFtX2luMzsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgxID09IFRocmVzaG9sZF9jaGVja19h
+bGlnbmVkKGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9pbjMpKSkgewoJCQlpbnQzMl90ICph
+bGlnbmVkX2luc3RyZWFtX2luMyA9IG1hbGxvYyhpbnN0cmVhbV9zaXplX2luMyk7CgkJCWlmIChh
+bGlnbmVkX2luc3RyZWFtX2luMyA9PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vycm9yX3NsaWMo
+YWN0aW9ucy0+ZXJyb3JzLCBfX0ZJTEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxlZCB0byBhbGxv
+Y2F0ZSBhbGlnbmVkIG1lbW9yeSBmb3Igc3RyZWFtICdpbjMnIik7CgkJCQlDSEVDS19FUlJPUlM7
+CgkJCX0KCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+dXNlcl9wdHIgICAg
+PSAodWludDhfdCopIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVhbV9pbjM7CgkJCSgmY2JfZGF0
+YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmFsaWduZWRfcHRyID0gKHVpbnQ4X3QqKSBhbGln
+bmVkX2luc3RyZWFtX2luMzsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+
+c2l6ZSAgICAgICAgPSBpbnN0cmVhbV9zaXplX2luMzsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2Jf
+ZGF0YS0+Y291bnRdKS0+aXNfb3V0cHV0ICAgPSAwOwoJCQljYl9kYXRhLT5jb3VudCArPSAxOwoJ
+CQltZW1jcHkoYWxpZ25lZF9pbnN0cmVhbV9pbjMsIGludGVyZmFjZV9hY3Rpb25zLT5pbnN0cmVh
+bV9pbjMsIGluc3RyZWFtX3NpemVfaW4zKTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRfaW5zdHJl
+YW1faW4zOwoJCX0KCQltYXhfcXVldWVfaW5wdXQoYWN0aW9ucywgImluMyIsIHN0cmVhbV9wdHIs
+IGluc3RyZWFtX3NpemVfaW4zKTsKCQlDSEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29kZSBm
+b3Igc3RyZWFtIGluMyAqLwoJCglpbnQ2NF90IHRtcF8zID0gKHBhcmFtX04gKiA0KTsKCQoJLyog
+Y29kZSBmb3Igc3RyZWFtIG91dDEgKi8KCXNpemVfdCBvdXRzdHJlYW1fc2l6ZV9vdXQxID0gdG1w
+XzM7CglpZiAob3V0c3RyZWFtX3NpemVfb3V0MSA+IDApIHsKCQlpbnQzMl90ICpzdHJlYW1fcHRy
+ID0gaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0cmVhbV9vdXQxOwoJCWlmICh1c2VfY2FsbGJhY2sg
+JiYgKDEgPT0gVGhyZXNob2xkX2NoZWNrX2FsaWduZWQoaW50ZXJmYWNlX2FjdGlvbnMtPm91dHN0
+cmVhbV9vdXQxKSkpIHsKCQkJaW50MzJfdCAqYWxpZ25lZF9vdXRzdHJlYW1fb3V0MSA9IG1hbGxv
+YyhvdXRzdHJlYW1fc2l6ZV9vdXQxKTsKCQkJaWYgKGFsaWduZWRfb3V0c3RyZWFtX291dDEgPT0g
+TlVMTCkgewoJCQkJbWF4X3JlcG9ydF9lcnJvcl9zbGljKGFjdGlvbnMtPmVycm9ycywgX19GSUxF
+X18sIF9fTElORV9fLCA1MjYsICJGYWlsZWQgdG8gYWxsb2NhdGUgYWxpZ25lZCBtZW1vcnkgZm9y
+IHN0cmVhbSAnb3V0MSciKTsKCQkJCUNIRUNLX0VSUk9SUzsKCQkJfQoJCQkoJmNiX2RhdGEtPnN0
+cmVhbVtjYl9kYXRhLT5jb3VudF0pLT51c2VyX3B0ciAgICA9ICh1aW50OF90KikgaW50ZXJmYWNl
+X2FjdGlvbnMtPm91dHN0cmVhbV9vdXQxOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5j
+b3VudF0pLT5hbGlnbmVkX3B0ciA9ICh1aW50OF90KikgYWxpZ25lZF9vdXRzdHJlYW1fb3V0MTsK
+CQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+c2l6ZSAgICAgICAgPSBvdXRz
+dHJlYW1fc2l6ZV9vdXQxOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0pLT5p
+c19vdXRwdXQgICA9IDE7CgkJCWNiX2RhdGEtPmNvdW50ICs9IDE7CgkJCXN0cmVhbV9wdHIgPSBh
+bGlnbmVkX291dHN0cmVhbV9vdXQxOwoJCX0KCQltYXhfcXVldWVfb3V0cHV0KGFjdGlvbnMsICJv
+dXQxIiwgc3RyZWFtX3B0ciwgb3V0c3RyZWFtX3NpemVfb3V0MSk7CgkJQ0hFQ0tfRVJST1JTOwoJ
+fQoJLyogZW5kIG9mIGNvZGUgZm9yIHN0cmVhbSBvdXQxICovCgkKCWludDY0X3QgdG1wXzQgPSAo
+cGFyYW1fTiAqIDQpOwoJCgkvKiBjb2RlIGZvciBzdHJlYW0gb3V0MiAqLwoJc2l6ZV90IG91dHN0
+cmVhbV9zaXplX291dDIgPSB0bXBfNDsKCWlmIChvdXRzdHJlYW1fc2l6ZV9vdXQyID4gMCkgewoJ
+CWludDMyX3QgKnN0cmVhbV9wdHIgPSBpbnRlcmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dDI7
+CgkJaWYgKHVzZV9jYWxsYmFjayAmJiAoMSA9PSBUaHJlc2hvbGRfY2hlY2tfYWxpZ25lZChpbnRl
+cmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dDIpKSkgewoJCQlpbnQzMl90ICphbGlnbmVkX291
+dHN0cmVhbV9vdXQyID0gbWFsbG9jKG91dHN0cmVhbV9zaXplX291dDIpOwoJCQlpZiAoYWxpZ25l
+ZF9vdXRzdHJlYW1fb3V0MiA9PSBOVUxMKSB7CgkJCQltYXhfcmVwb3J0X2Vycm9yX3NsaWMoYWN0
+aW9ucy0+ZXJyb3JzLCBfX0ZJTEVfXywgX19MSU5FX18sIDUyNiwgIkZhaWxlZCB0byBhbGxvY2F0
+ZSBhbGlnbmVkIG1lbW9yeSBmb3Igc3RyZWFtICdvdXQyJyIpOwoJCQkJQ0hFQ0tfRVJST1JTOwoJ
+CQl9CgkJCSgmY2JfZGF0YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPnVzZXJfcHRyICAgID0g
+KHVpbnQ4X3QqKSBpbnRlcmZhY2VfYWN0aW9ucy0+b3V0c3RyZWFtX291dDI7CgkJCSgmY2JfZGF0
+YS0+c3RyZWFtW2NiX2RhdGEtPmNvdW50XSktPmFsaWduZWRfcHRyID0gKHVpbnQ4X3QqKSBhbGln
+bmVkX291dHN0cmVhbV9vdXQyOwoJCQkoJmNiX2RhdGEtPnN0cmVhbVtjYl9kYXRhLT5jb3VudF0p
+LT5zaXplICAgICAgICA9IG91dHN0cmVhbV9zaXplX291dDI7CgkJCSgmY2JfZGF0YS0+c3RyZWFt
+W2NiX2RhdGEtPmNvdW50XSktPmlzX291dHB1dCAgID0gMTsKCQkJY2JfZGF0YS0+Y291bnQgKz0g
+MTsKCQkJc3RyZWFtX3B0ciA9IGFsaWduZWRfb3V0c3RyZWFtX291dDI7CgkJfQoJCW1heF9xdWV1
+ZV9vdXRwdXQoYWN0aW9ucywgIm91dDIiLCBzdHJlYW1fcHRyLCBvdXRzdHJlYW1fc2l6ZV9vdXQy
+KTsKCQlDSEVDS19FUlJPUlM7Cgl9CgkvKiBlbmQgb2YgY29kZSBmb3Igc3RyZWFtIG91dDIgKi8K
+CQoJaW50NjRfdCB0bXBfNSA9IChwYXJhbV9OICogNCk7CgkKCS8qIGNvZGUgZm9yIHN0cmVhbSBv
+dXQzICovCglzaXplX3Qgb3V0c3RyZWFtX3NpemVfb3V0MyA9IHRtcF81OwoJaWYgKG91dHN0cmVh
+bV9zaXplX291dDMgPiAwKSB7CgkJaW50MzJfdCAqc3RyZWFtX3B0ciA9IGludGVyZmFjZV9hY3Rp
+b25zLT5vdXRzdHJlYW1fb3V0MzsKCQlpZiAodXNlX2NhbGxiYWNrICYmICgxID09IFRocmVzaG9s
+ZF9jaGVja19hbGlnbmVkKGludGVyZmFjZV9hY3Rpb25zLT5vdXRzdHJlYW1fb3V0MykpKSB7CgkJ
+CWludDMyX3QgKmFsaWduZWRfb3V0c3RyZWFtX291dDMgPSBtYWxsb2Mob3V0c3RyZWFtX3NpemVf
+b3V0Myk7CgkJCWlmIChhbGlnbmVkX291dHN0cmVhbV9vdXQzID09IE5VTEwpIHsKCQkJCW1heF9y
+ZXBvcnRfZXJyb3Jfc2xpYyhhY3Rpb25zLT5lcnJvcnMsIF9fRklMRV9fLCBfX0xJTkVfXywgNTI2
+LCAiRmFpbGVkIHRvIGFsbG9jYXRlIGFsaWduZWQgbWVtb3J5IGZvciBzdHJlYW0gJ291dDMnIik7
+CgkJCQlDSEVDS19FUlJPUlM7CgkJCX0KCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291
+bnRdKS0+dXNlcl9wdHIgICAgPSAodWludDhfdCopIGludGVyZmFjZV9hY3Rpb25zLT5vdXRzdHJl
+YW1fb3V0MzsKCQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+YWxpZ25lZF9w
+dHIgPSAodWludDhfdCopIGFsaWduZWRfb3V0c3RyZWFtX291dDM7CgkJCSgmY2JfZGF0YS0+c3Ry
+ZWFtW2NiX2RhdGEtPmNvdW50XSktPnNpemUgICAgICAgID0gb3V0c3RyZWFtX3NpemVfb3V0MzsK
+CQkJKCZjYl9kYXRhLT5zdHJlYW1bY2JfZGF0YS0+Y291bnRdKS0+aXNfb3V0cHV0ICAgPSAxOwoJ
+CQljYl9kYXRhLT5jb3VudCArPSAxOwoJCQlzdHJlYW1fcHRyID0gYWxpZ25lZF9vdXRzdHJlYW1f
+b3V0MzsKCQl9CgkJbWF4X3F1ZXVlX291dHB1dChhY3Rpb25zLCAib3V0MyIsIHN0cmVhbV9wdHIs
+IG91dHN0cmVhbV9zaXplX291dDMpOwoJCUNIRUNLX0VSUk9SUzsKCX0KCS8qIGVuZCBvZiBjb2Rl
+IGZvciBzdHJlYW0gb3V0MyAqLwoJCglpZiAodXNlX2NhbGxiYWNrICYmIGNiX2RhdGEtPmNvdW50
+ID09IDApIHsKCQkqY2FsbGJhY2tfZGF0YSA9IE5VTEw7CgkJKmNhbGxiYWNrX2Z1bmMgPSBOVUxM
+OwoJCWZyZWUoY2JfZGF0YSk7Cgl9CglyZXR1cm4gYWN0aW9uczsKI3VuZGVmIENIRUNLX0VSUk9S
+Uwp9Cgp2b2lkIFRocmVzaG9sZCgKCWludDMyX3QgcGFyYW1fTiwKCWNvbnN0IGludDMyX3QgKmlu
+c3RyZWFtX2luMSwKCWNvbnN0IGludDMyX3QgKmluc3RyZWFtX2luMiwKCWNvbnN0IGludDMyX3Qg
+Kmluc3RyZWFtX2luMywKCWludDMyX3QgKm91dHN0cmVhbV9vdXQxLAoJaW50MzJfdCAqb3V0c3Ry
+ZWFtX291dDIsCglpbnQzMl90ICpvdXRzdHJlYW1fb3V0MykKewoJKHZvaWQpIHB0aHJlYWRfb25j
+ZSgmc2xpY19ic19pc19pbml0aWFsaXNlZCwgVGhyZXNob2xkX3N0YXRpY19pbml0KTsKCUNIRUNL
+X05VTEwoc3RvcmVkX21heGZpbGUsICJNYXhmaWxlIHdhcyBub3QgbG9hZGVkIiwgKTsKCW1heF9y
+dW5fdCAqcnVuID0gVGhyZXNob2xkX25vbmJsb2NrKHBhcmFtX04sIGluc3RyZWFtX2luMSwgaW5z
+dHJlYW1faW4yLCBpbnN0cmVhbV9pbjMsIG91dHN0cmVhbV9vdXQxLCBvdXRzdHJlYW1fb3V0Miwg
+b3V0c3RyZWFtX291dDMpOwoJQ0hFQ0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlvbnMi
+LCApOwoJbWF4X3dhaXQocnVuKTsKfQoKbWF4X3J1bl90ICpUaHJlc2hvbGRfbm9uYmxvY2soCglp
+bnQzMl90IHBhcmFtX04sCgljb25zdCBpbnQzMl90ICppbnN0cmVhbV9pbjEsCgljb25zdCBpbnQz
+Ml90ICppbnN0cmVhbV9pbjIsCgljb25zdCBpbnQzMl90ICppbnN0cmVhbV9pbjMsCglpbnQzMl90
+ICpvdXRzdHJlYW1fb3V0MSwKCWludDMyX3QgKm91dHN0cmVhbV9vdXQyLAoJaW50MzJfdCAqb3V0
+c3RyZWFtX291dDMpCnsKCVRocmVzaG9sZF9hY3Rpb25zX3QgaW50ZXJmYWNlX2FjdGlvbnM7Cglp
+bnRlcmZhY2VfYWN0aW9ucy5wYXJhbV9OID0gcGFyYW1fTjsKCWludGVyZmFjZV9hY3Rpb25zLmlu
+c3RyZWFtX2luMSA9IGluc3RyZWFtX2luMTsKCWludGVyZmFjZV9hY3Rpb25zLmluc3RyZWFtX2lu
+MiA9IGluc3RyZWFtX2luMjsKCWludGVyZmFjZV9hY3Rpb25zLmluc3RyZWFtX2luMyA9IGluc3Ry
+ZWFtX2luMzsKCWludGVyZmFjZV9hY3Rpb25zLm91dHN0cmVhbV9vdXQxID0gb3V0c3RyZWFtX291
+dDE7CglpbnRlcmZhY2VfYWN0aW9ucy5vdXRzdHJlYW1fb3V0MiA9IG91dHN0cmVhbV9vdXQyOwoJ
+aW50ZXJmYWNlX2FjdGlvbnMub3V0c3RyZWFtX291dDMgPSBvdXRzdHJlYW1fb3V0MzsKCSh2b2lk
+KSBwdGhyZWFkX29uY2UoJnNsaWNfYnNfaXNfaW5pdGlhbGlzZWQsIFRocmVzaG9sZF9zdGF0aWNf
+aW5pdCk7CglDSEVDS19OVUxMKHN0b3JlZF9tYXhmaWxlLCAiTWF4ZmlsZSB3YXMgbm90IGxvYWRl
+ZCIsIE5VTEwpOwoJdm9pZCAoKmNiX2Z1bmMpKHZvaWQqKSA9IE5VTEw7Cgl2b2lkICAqY2JfZGF0
+YSAgICAgICAgID0gTlVMTDsKCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMgPSBUaHJlc2hvbGRfY29u
+dmVydF9pbnRlcm5hbChzdG9yZWRfbWF4ZmlsZSwgJmludGVyZmFjZV9hY3Rpb25zLCAxLCAmY2Jf
+ZnVuYywgJmNiX2RhdGEpOwoJQ0hFQ0tfTlVMTChhY3Rpb25zLCAiVW5hYmxlIHRvIGJ1aWxkIGFj
+dGlvbnMiLCBOVUxMKTsKCW1heF92YWxpZGF0ZShhY3Rpb25zKTsKCUNIRUNLX0VSUk9SU19TVChh
+Y3Rpb25zLCBOVUxMKTsKCUNIRUNLX0VSUk9SU19TVChzdG9yZWRfZW5naW5lLCBOVUxMKTsKCW1h
+eF9ydW5fdCAqcnVuOwoJaWYgKGNiX2Z1bmMgPT0gTlVMTCkgewoJCXJ1biA9IG1heF9ydW5fbm9u
+YmxvY2soc3RvcmVkX2VuZ2luZSwgYWN0aW9ucyk7Cgl9IGVsc2UgewoJCXJ1biA9IG1heF9ydW5f
+bm9uYmxvY2tfd2l0aF9jYihzdG9yZWRfZW5naW5lLCBhY3Rpb25zLCBjYl9mdW5jLCBjYl9kYXRh
+KTsKCX0KCUNIRUNLX05VTEwocnVuLCAiVW5hYmxlIHRvIHJ1biBhY3Rpb25zIiwgTlVMTCk7CglD
+SEVDS19FUlJPUlNfU1QoYWN0aW9ucywgTlVMTCk7CgltYXhfYWN0aW9uc19mcmVlKGFjdGlvbnMp
+OwoJcmV0dXJuIHJ1bjsKfQoKdm9pZCBUaHJlc2hvbGRfcnVuKAoJbWF4X2VuZ2luZV90ICplbmdp
+bmUsCglUaHJlc2hvbGRfYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4X3J1bl90
+ICpydW4gPSBUaHJlc2hvbGRfcnVuX25vbmJsb2NrKGVuZ2luZSwgaW50ZXJmYWNlX2FjdGlvbnMp
+OwoJQ0hFQ0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlvbnMiLCApOwoJbWF4X3dhaXQo
+cnVuKTsKfQoKbWF4X3J1bl90ICpUaHJlc2hvbGRfcnVuX25vbmJsb2NrKAoJbWF4X2VuZ2luZV90
+ICplbmdpbmUsCglUaHJlc2hvbGRfYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4
+X2ZpbGVfdCAqbWF4ZmlsZSA9IG1heF9lbmdpbmVfZ2V0X21heF9maWxlKGVuZ2luZSk7IAoJdm9p
+ZCAoKmNiX2Z1bmMpKHZvaWQqKSA9IE5VTEw7Cgl2b2lkICAqY2JfZGF0YSAgICAgICAgID0gTlVM
+TDsKCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMgPSBUaHJlc2hvbGRfY29udmVydF9pbnRlcm5hbCht
+YXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMSwgJmNiX2Z1bmMsICZjYl9kYXRhKTsKCUNIRUNL
+X0VSUk9SU19TVChhY3Rpb25zLCBOVUxMKTsKCW1heF9ydW5fdCAqcnVuOwoJaWYgKGNiX2Z1bmMg
+PT0gTlVMTCkgewoJCXJ1biA9IG1heF9ydW5fbm9uYmxvY2soZW5naW5lLCBhY3Rpb25zKTsKCX0g
+ZWxzZSB7CgkJcnVuID0gbWF4X3J1bl9ub25ibG9ja193aXRoX2NiKGVuZ2luZSwgYWN0aW9ucywg
+Y2JfZnVuYywgY2JfZGF0YSk7Cgl9CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0
+aW9ucyIsIE5VTEwpOwoJbWF4X2FjdGlvbnNfZnJlZShhY3Rpb25zKTsKCXJldHVybiBydW47Cn0K
+CgovKioKICogXGJyaWVmIEdyb3VwIHJ1biBhZHZhbmNlZCBzdGF0aWMgZnVuY3Rpb24gZm9yIHRo
+ZSBpbnRlcmZhY2UgJ2RlZmF1bHQnLgogKiAKICogXHBhcmFtIFtpbl0gZ3JvdXAgR3JvdXAgdG8g
+dXNlLgogKiBccGFyYW0gW2luLG91dF0gaW50ZXJmYWNlX2FjdGlvbnMgQWN0aW9ucyB0byBydW4u
+CiAqCiAqIFJ1biB0aGUgYWN0aW9ucyBvbiB0aGUgZmlyc3QgZGV2aWNlIGF2YWlsYWJsZSBpbiB0
+aGUgZ3JvdXAuCiAqLwp2b2lkIFRocmVzaG9sZF9ydW5fZ3JvdXAobWF4X2dyb3VwX3QgKmdyb3Vw
+LCBUaHJlc2hvbGRfYWN0aW9uc190ICppbnRlcmZhY2VfYWN0aW9ucykKewoJbWF4X3J1bl90ICpy
+dW4gPSBUaHJlc2hvbGRfcnVuX2dyb3VwX25vbmJsb2NrKGdyb3VwLCBpbnRlcmZhY2VfYWN0aW9u
+cyk7CglDSEVDS19OVUxMKHJ1biwgIlVuYWJsZSB0byBydW4gYWN0aW9ucyIsICk7CgltYXhfd2Fp
+dChydW4pOwp9CgoKLyoqCiAqIFxicmllZiBHcm91cCBydW4gYWR2YW5jZWQgc3RhdGljIG5vbi1i
+bG9ja2luZyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAogKgogKiBT
+Y2hlZHVsZSB0aGUgYWN0aW9ucyB0byBydW4gb24gdGhlIGZpcnN0IGRldmljZSBhdmFpbGFibGUg
+aW4gdGhlIGdyb3VwIGFuZCByZXR1cm4gaW1tZWRpYXRlbHkuCiAqIFRoZSBzdGF0dXMgb2YgdGhl
+IHJ1biBtdXN0IGJlIGNoZWNrZWQgd2l0aCA6Om1heF93YWl0LiAKICogTm90ZSB0aGF0IHVzZSBv
+ZiA6Om1heF9ub3dhaXQgaXMgcHJvaGliaXRlZCB3aXRoIG5vbi1ibG9ja2luZyBydW5uaW5nIG9u
+IGdyb3VwczoKICogc2VlIHRoZSA6Om1heF9ydW5fZ3JvdXBfbm9uYmxvY2sgZG9jdW1lbnRhdGlv
+biBmb3IgbW9yZSBleHBsYW5hdGlvbi4KICoKICogXHBhcmFtIFtpbl0gZ3JvdXAgR3JvdXAgdG8g
+dXNlLgogKiBccGFyYW0gW2luXSBpbnRlcmZhY2VfYWN0aW9ucyBBY3Rpb25zIHRvIHJ1bi4KICog
+XHJldHVybiBBIGhhbmRsZSBvbiB0aGUgZXhlY3V0aW9uIHN0YXR1cyBvZiB0aGUgYWN0aW9ucywg
+b3IgTlVMTCBpbiBjYXNlIG9mIGVycm9yLgogKi8KbWF4X3J1bl90ICpUaHJlc2hvbGRfcnVuX2dy
+b3VwX25vbmJsb2NrKG1heF9ncm91cF90ICpncm91cCwgVGhyZXNob2xkX2FjdGlvbnNfdCAqaW50
+ZXJmYWNlX2FjdGlvbnMpCnsKCW1heF9maWxlX3QgKm1heGZpbGUgPSBtYXhfZ3JvdXBfZ2V0X21h
+eF9maWxlKGdyb3VwKTsKCW1heF9hY3Rpb25zX3QgKmFjdGlvbnMgPSBUaHJlc2hvbGRfY29udmVy
+dF9pbnRlcm5hbChtYXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMSwgTlVMTCwgTlVMTCk7Cglp
+ZihhY3Rpb25zID09IE5VTEwpIHJldHVybiBOVUxMOwoJaWYoIW1heF9vayhhY3Rpb25zLT5lcnJv
+cnMpKSByZXR1cm4gTlVMTDsKCW1heF92YWxpZGF0ZShhY3Rpb25zKTsKCW1heF9ydW5fdCAqcnVu
+ID0gbWF4X3J1bl9ncm91cF9ub25ibG9jayhncm91cCwgYWN0aW9ucyk7CgltYXhfYWN0aW9uc19m
+cmVlKGFjdGlvbnMpOwoJcmV0dXJuIHJ1bjsKfQoKCi8qKgogKiBcYnJpZWYgQXJyYXkgcnVuIGFk
+dmFuY2VkIHN0YXRpYyBmdW5jdGlvbiBmb3IgdGhlIGludGVyZmFjZSAnZGVmYXVsdCcuCiAqIAog
+KiBccGFyYW0gW2luXSBlbmdhcnJheSBUaGUgYXJyYXkgb2YgZGV2aWNlcyB0byB1c2UuCiAqIFxw
+YXJhbSBbaW4sb3V0XSBpbnRlcmZhY2VfYWN0aW9ucyBUaGUgYXJyYXkgb2YgYWN0aW9ucyB0byBy
+dW4uCiAqCiAqIFJ1biB0aGUgYXJyYXkgb2YgYWN0aW9ucyBvbiB0aGUgYXJyYXkgb2YgZW5naW5l
+cy4gIFRoZSBsZW5ndGggb2YgaW50ZXJmYWNlX2FjdGlvbnMKICogbXVzdCBtYXRjaCB0aGUgc2l6
+ZSBvZiBlbmdhcnJheS4KICovCnZvaWQgVGhyZXNob2xkX3J1bl9hcnJheShtYXhfZW5nYXJyYXlf
+dCAqZW5nYXJyYXksIFRocmVzaG9sZF9hY3Rpb25zX3QgKmludGVyZmFjZV9hY3Rpb25zW10pCnsK
+CW1heF9ydW5fdCAqcnVuID0gVGhyZXNob2xkX3J1bl9hcnJheV9ub25ibG9jayhlbmdhcnJheSwg
+aW50ZXJmYWNlX2FjdGlvbnMpOwoJQ0hFQ0tfTlVMTChydW4sICJVbmFibGUgdG8gcnVuIGFjdGlv
+bnMiLCApOwoJbWF4X3dhaXQocnVuKTsKfQoKCi8qKgogKiBcYnJpZWYgQXJyYXkgcnVuIGFkdmFu
+Y2VkIHN0YXRpYyBub24tYmxvY2tpbmcgZnVuY3Rpb24gZm9yIHRoZSBpbnRlcmZhY2UgJ2RlZmF1
+bHQnLgogKiAKICoKICogU2NoZWR1bGUgdG8gcnVuIHRoZSBhcnJheSBvZiBhY3Rpb25zIG9uIHRo
+ZSBhcnJheSBvZiBlbmdpbmVzLCBhbmQgcmV0dXJuIGltbWVkaWF0ZWx5LgogKiBUaGUgbGVuZ3Ro
+IG9mIGludGVyZmFjZV9hY3Rpb25zIG11c3QgbWF0Y2ggdGhlIHNpemUgb2YgZW5nYXJyYXkuCiAq
+IFRoZSBzdGF0dXMgb2YgdGhlIHJ1biBjYW4gYmUgY2hlY2tlZCBlaXRoZXIgYnkgOjptYXhfd2Fp
+dCBvciA6Om1heF9ub3dhaXQ7CiAqIG5vdGUgdGhhdCBvbmUgb2YgdGhlc2UgKm11c3QqIGJlIGNh
+bGxlZCwgc28gdGhhdCBhc3NvY2lhdGVkIG1lbW9yeSBjYW4gYmUgcmVsZWFzZWQuCiAqCiAqIFxw
+YXJhbSBbaW5dIGVuZ2FycmF5IFRoZSBhcnJheSBvZiBkZXZpY2VzIHRvIHVzZS4KICogXHBhcmFt
+IFtpbl0gaW50ZXJmYWNlX2FjdGlvbnMgVGhlIGFycmF5IG9mIGFjdGlvbnMgdG8gcnVuLgogKiBc
+cmV0dXJuIEEgaGFuZGxlIG9uIHRoZSBleGVjdXRpb24gc3RhdHVzIG9mIHRoZSBhY3Rpb25zLCBv
+ciBOVUxMIGluIGNhc2Ugb2YgZXJyb3IuCiAqLwptYXhfcnVuX3QgKlRocmVzaG9sZF9ydW5fYXJy
+YXlfbm9uYmxvY2sobWF4X2VuZ2FycmF5X3QgKmVuZ2FycmF5LCBUaHJlc2hvbGRfYWN0aW9uc190
+ICppbnRlcmZhY2VfYWN0aW9uc1tdKQp7CgltYXhfZmlsZV90ICptYXhmaWxlID0gbWF4X2VuZ2Fy
+cmF5X2dldF9tYXhfZmlsZShlbmdhcnJheSwgMCk7CglpbnQgaTsKCW1heF9hY3RhcnJheV90ICph
+Y3RhcnJheSA9IG1heF9hY3RhcnJheV9pbml0KG1heGZpbGUsIGVuZ2FycmF5LT5zaXplKTsKCWlm
+IChhY3RhcnJheSA9PSBOVUxMKSByZXR1cm4gTlVMTDsKCW1heF9hY3Rpb25zX3QgKiphcnJfYWN0
+aW9ucyA9IG1hbGxvYyhlbmdhcnJheS0+c2l6ZSAqIHNpemVvZihtYXhfYWN0aW9uc190KikpOwoJ
+Zm9yICggaSA9IDAgOyBpIDwgYWN0YXJyYXktPnNpemU7IGkrKyApIHsKCQltYXhfYWN0aW9uc190
+ICphY3Rpb25zID0gVGhyZXNob2xkX2NvbnZlcnRfaW50ZXJuYWwobWF4ZmlsZSwgaW50ZXJmYWNl
+X2FjdGlvbnNbaV0sIDEsIE5VTEwsIE5VTEwpOwoJCWlmIChhY3Rpb25zID09IE5VTEwpIHJldHVy
+biBOVUxMOwoJCWFycl9hY3Rpb25zW2ldID0gYWN0aW9uczsKCQltYXhfc2V0X2FjdGlvbihhY3Rh
+cnJheSwgaSwgYWN0aW9ucyk7Cgl9CgltYXhfcnVuX3QgKnJ1biA9IG1heF9ydW5fYXJyYXlfbm9u
+YmxvY2soZW5nYXJyYXksIGFjdGFycmF5KTsKCWZvciAoIGkgPSAwIDsgaSA8IGFjdGFycmF5LT5z
+aXplIDsgaSsrICkgeyBtYXhfYWN0aW9uc19mcmVlKGFycl9hY3Rpb25zW2ldKTsgfQoJbWF4X2Fj
+dGFycmF5X2ZyZWUoYWN0YXJyYXkpOwoJZnJlZShhcnJfYWN0aW9ucyk7CglyZXR1cm4gcnVuOwp9
+CgoKLyoqCiAqIFxicmllZiBDb252ZXJ0cyBhIHN0YXRpYy1pbnRlcmZhY2UgYWN0aW9uIHN0cnVj
+dCBpbnRvIGEgZHluYW1pYy1pbnRlcmZhY2UgbWF4X2FjdGlvbnNfdCBzdHJ1Y3QuCiAqCiAqIE5v
+dGUgdGhhdCB0aGlzIGlzIGFuIGludGVybmFsIHV0aWxpdHkgZnVuY3Rpb24gdXNlZCBieSBvdGhl
+ciBmdW5jdGlvbnMgaW4gdGhlIHN0YXRpYyBpbnRlcmZhY2UuCiAqCiAqIFxwYXJhbSBbaW5dIG1h
+eGZpbGUgVGhlIG1heGZpbGUgdG8gdXNlLgogKiBccGFyYW0gW2luXSBpbnRlcmZhY2VfYWN0aW9u
+cyBUaGUgaW50ZXJmYWNlLXNwZWNpZmljIGFjdGlvbnMgdG8gcnVuLgogKiBccmV0dXJuIFRoZSBk
+eW5hbWljLWludGVyZmFjZSBhY3Rpb25zIHRvIHJ1biwgb3IgTlVMTCBpbiBjYXNlIG9mIGVycm9y
+LgogKi8KbWF4X2FjdGlvbnNfdCogVGhyZXNob2xkX2NvbnZlcnQobWF4X2ZpbGVfdCAqbWF4Zmls
+ZSwgVGhyZXNob2xkX2FjdGlvbnNfdCAqaW50ZXJmYWNlX2FjdGlvbnMpCnsKCXJldHVybiBUaHJl
+c2hvbGRfY29udmVydF9pbnRlcm5hbChtYXhmaWxlLCBpbnRlcmZhY2VfYWN0aW9ucywgMCwgTlVM
+TCwgTlVMTCk7Cn0KCiN1bmRlZiBDSEVDS19FUlJPUlNfU1QKI3VuZGVmIENIRUNLX05VTEwKCgo=
+#endif /* SLIC_B64_DEFINITIONS */
+
+#ifdef SLIC_EXTRA_FILES
+PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHVz
+ZXJmaWxlcyBmb3JtYXQtdmVyc2lvbj0iMjAxMjAyMDAiLz4=
+#endif /* SLIC_EXTRA_FILES */
+
+#ifdef PHOTON_NODE_ADD_DATA
+#define PHOTON_NODE_ADD_DATA_PRESENT 1
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 37, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 38, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 0, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 1, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 2, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 3, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 4, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 5, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 6, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 7, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 8, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 63, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 74, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 12, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 16, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 73, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 14, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 64, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 15, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 17, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 40, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 42, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 43, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 72, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 21, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 25, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 71, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 23, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 65, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 24, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 26, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 45, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 47, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 48, "SquashFactor", 1.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 70, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 30, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 34, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 69, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 32, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 66, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 33, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 35, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 50, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 55, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 68, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 52, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 53, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 54, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 56, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 67, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 58, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 59, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 61, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 62, "SquashFactor", 0.0)
+PHOTON_NODE_ADD_DATA(ThresholdKernel, 60, "SquashFactor", 0.0)
+#endif
+
+#ifdef MAXFILE_SIGNATURE
+#define MAXFILE_SIGNATURE_PRESENT 1
+MAXFILE_SIGNATURE("302c0214600c1c5bf7abe3fcbe33ef2db08833e8bbadc24c02146bf5c18589afc826c078250837c9a4805f27a933")
+#endif
+

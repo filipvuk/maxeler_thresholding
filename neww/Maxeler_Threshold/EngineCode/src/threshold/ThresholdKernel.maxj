@@ -1,0 +1,29 @@
+package threshold;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class ThresholdKernel extends Kernel {
+
+	private static final DFEType type = dfeInt(32);
+
+	ThresholdKernel(KernelParameters parameters) {
+		super(parameters);
+
+		DFEVar input1 = io.input("in1", type);
+		DFEVar input2 = io.input("in2", type);
+		DFEVar input3 = io.input("in3", type);
+
+		DFEVar result1 = input1 + input2 + input3 >= 128*3 ? input1 + 255 - input1 : 0;
+		DFEVar result2 = input1 + input2 + input3 >= 128*3 ? input2 + 255 - input2 : 0;
+		DFEVar result3 = input1 + input2 + input3 >= 128*3 ? input3 + 255 - input3 : 0;
+
+		io.output("out1", result1, type);
+		io.output("out2", result2, type);
+		io.output("out3", result3, type);
+	}
+
+
+}
